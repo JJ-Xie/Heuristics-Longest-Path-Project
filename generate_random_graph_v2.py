@@ -1,7 +1,7 @@
 import igraph as ig
 import random
 
-def generate_random_graph(n, m):
+def generate_random_graph2(n, m):
 
     min_edges = n-1
     max_edges = int(n*(n-1)/2)
@@ -40,7 +40,3 @@ def generate_random_graph(n, m):
 
     g.add_edges(all_edges)
     return(g)
-
-generated_graph = generate_random_graph(13, 52)
-
-ig.plot(generated_graph)
