@@ -1,5 +1,4 @@
 import igraph as ig
-from matplotlib.style import available
 
 def greed(graph, vertex, available):
     best_option_stats = [0, 0]
