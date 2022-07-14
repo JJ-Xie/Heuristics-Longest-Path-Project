@@ -30,7 +30,12 @@ def random_graph(n, m):
 
     #Creating intial vertices of the graph
     g = ig.Graph(directed=False)
+
     g.add_vertices(n)
+
+    for i in range(len(g.vs)):
+        g.vs[i]["id"]= i
+        g.vs[i]["label"]= str(i)
     
     #Finding all possible source-target vertex pairs by looping through all vertices and pairing them with all vertices larger than it
     #Avoids redudant pairs
