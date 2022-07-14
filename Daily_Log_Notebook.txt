@@ -7,7 +7,7 @@ Today I worked on 2 things:
 
 For the coding side of things. I had a couple of ideas for the code I had done yesterday. 
 I wrote a cleaner and commented version of that idea. However, it turns out that the code is as accurate as I had hoped. 
-From my debugging and testing, I have deduced that the problem is my code always takes the lower number vertex if two vertices have the same "potential" destination points. 
+From my debugging and testing, I have deduced that the problem is my algorithm takes the vertex with a lower id when two vertices have the same "potential" destination points. 
 If I were to try and fix this, it would very likely become a recursive function with what I have in mind. I'll have to more testing on that.
 
 For research, I search online about the longest path of an undirected, unweighted graph and found very little as it is an NP-hard problem. 
