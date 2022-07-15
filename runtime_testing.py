@@ -11,7 +11,7 @@ testing_intervals = [50, 100, 150, 200, 250, 300, 350, 400]
 #Testing treestart random graph runtime
 for interval in testing_intervals:
     vertices = interval
-    edges = int(vertices*(vertices-1)/2)
+    edges = vertices*(vertices-1)//2
 
     start_time = time.time()
     output = basetree_random_graph(vertices, edges)
@@ -21,7 +21,7 @@ for interval in testing_intervals:
 #Testing my random unconnected graph runtime
 for interval in testing_intervals:
     vertices = interval
-    edges = int(vertices*(vertices-1)/2)
+    edges = vertices*(vertices-1)//2
 
     start_time = time.time()
     output = unconnected_random_graph(vertices, edges)
