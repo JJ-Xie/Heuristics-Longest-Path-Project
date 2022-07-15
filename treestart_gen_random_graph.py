@@ -1,9 +1,11 @@
+#Generate a random graph by starting with a tree
+
 import igraph as ig
 import random
 
-#Below is the Pseudocode provided by Bart
+#Below is the Pseudocode for this algorithm
 
-# To make a "random" graph with m nodes and n edges, with m > n - 1:
+# To make a "random" graph with n nodes and m edges, with m > n - 1:
 
 #    let E be the set of all possible edges (i, j) between n vertices
 
