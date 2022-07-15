@@ -2,7 +2,7 @@ import igraph as ig
 import random
 
 #This function generates a random graph from a given number of vertices and edges
-def generate_random_graph1(n, m):
+def unconnected_random_graph(n, m):
 
     #Creation of Graph
     g = ig.Graph(directed=False)
