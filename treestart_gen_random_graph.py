@@ -1,4 +1,5 @@
 #Generate a random graph by starting with a tree
+#Justin Xie 2022
 
 import igraph as ig
 import random
