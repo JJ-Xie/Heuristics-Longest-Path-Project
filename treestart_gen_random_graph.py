@@ -22,7 +22,7 @@ import random
 
 
 #Below is the Python implementation of the above pseudocode
-def random_graph(n, m):
+def basetree_random_graph(n, m):
     
     #Checking if the number of edges is below the minimum
     if m < n-1:
