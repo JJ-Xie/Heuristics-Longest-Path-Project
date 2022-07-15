@@ -1,19 +1,8 @@
+#Heuristic for longest path problem utilizing the opposite of the greedy algorithm
+#Justin Xie 2022
+
 import igraph as ig
 
-#Returns a list of nodes with the least connecting edges
-def find_start_nodes(graph):
-    start_nodes_list = []
-    least_connections = 0
-    for i in range(len(graph.vs)):
-        if i == 0:
-            least_connections = len(graph.neighbors(i))
-            start_nodes_list.append(i)
-        elif len(graph.neighbors(i)) < least_connections:
-            least_connections = len(graph.neighbors(i))
-            start_nodes_list = [i]
-        elif len(graph.neighbors(i)) == least_connections:
-            start_nodes_list.append(i)
-    return start_nodes_list
 
 #Returns a dictionary with keys representing the vertex and the label representing the number of connections it has (the score)
 def gen_potential(graph):
@@ -22,12 +11,14 @@ def gen_potential(graph):
         potential[i] = len(graph.neighbors(i))
     return potential
 
+
 #Returns a set containing all nodes from a graph
 def gen_all_nodes_set(graph):
     all_nodes = set()
     for i in range(len(graph.vs)):
         all_nodes.add(i)
     return all_nodes
+
 
 #Inputs a graph, a vertex, and the dictionary representing number of avaiable connections
 #Returns the dictionary with the vertex key-value pair removed and the values of the nodes it was connected to are decremented by 1
@@ -39,13 +30,16 @@ def subtract_potential(graph, current_vertex, potential):
     potential.pop(current_vertex)
     return potential
 
-#Inputs a graph, a vertex, a set of the available nodes, and the scores of each node
+
+#Inputs a graph, a vertex, a set of the available nodes, and the scores (available next connections) of each node
 #Returns the "best" adjacent node to move to by finding the one with the lowest score
 def best_next(graph, vertex, availability, potential):
     greatest_score = 0
     all_neighbors = graph.neighbors(vertex)
     tracker = 0
     next_candidate = None
+
+    #Loops through all adjacent nodes to find the one with the lowest available next connections
     for i in range(len(all_neighbors)):
         if all_neighbors[i] in availability:
             node = all_neighbors[i]
@@ -58,6 +52,7 @@ def best_next(graph, vertex, availability, potential):
                 if score < greatest_score and score != 0:
                     greatest_score = score
                     next_candidate = node
+
     #If all other options are gone, then the algorithm defaults to a node with zero next paths
     if next_candidate == None:
         for p in all_neighbors:
@@ -66,21 +61,23 @@ def best_next(graph, vertex, availability, potential):
     else:
         return next_candidate
 
+
 #Inputs a graph
 #Returns the longest path in the graph
 def altruist_longest_path(graph):
     longest_path_track = []
     longest_path_length = 0
-    starting_nodes = find_start_nodes(graph)
 
     #Finds paths starting at the nodes with the least connections
-    for i in range(len(starting_nodes)):
+    for i in range(len(graph.vs)):
         path_tracker = []
         path_length = 0
-        current = starting_nodes[i]
+        current = i
         potential = gen_potential(graph)
         available = gen_all_nodes_set(graph)
         to_continue = True
+
+        #Loops until the path reaches a node with zero available next connections
         while to_continue:
             path_tracker.append(current)
             potential = subtract_potential(graph, current, potential)
@@ -92,6 +89,8 @@ def altruist_longest_path(graph):
                 available.remove(current)
                 current = next
                 path_length += 1
+        
+        #Determines if the current vertex's longest path is the longest path in the graph
         if path_length > longest_path_length:
             longest_path_length = path_length
             longest_path_track = [path_tracker]
