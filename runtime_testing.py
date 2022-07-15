@@ -1,3 +1,6 @@
+#Benchmark for runtimes of various random graph generation algorithms
+#Justin Xie 2022
+
 import time
 from treestart_gen_random_graph import basetree_random_graph
 from unconnected_random_graph import unconnected_random_graph
