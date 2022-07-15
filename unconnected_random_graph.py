@@ -1,3 +1,6 @@
+#Generate a random graph by selecting random nodes to connect
+#Justin Xie 2022
+
 import igraph as ig
 import random
 
