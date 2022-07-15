@@ -1,3 +1,6 @@
+#Implements a greedy and antigreedy heuristic to find the longest path a graph
+#Justin Xie 2022
+
 import igraph as ig
 
 def greed(graph, vertex, available):
@@ -103,4 +106,3 @@ def using_both(graph):
         THE_longest_path = altruistic_approach
         path_order = altruistic_path
     return THE_longest_path, path_order
-
