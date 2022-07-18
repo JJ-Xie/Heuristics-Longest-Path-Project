@@ -3,19 +3,23 @@
 
 import igraph as ig
 import time
+import matplotlib.pyplot as plt
+import numpy as np
 
 from treestart_gen_random_graph import basetree_random_graph
 from find_longest_path import find_longest_path
 from implementing_heuristics import altruist_longest_path
 
 
-#Testing brute force runtimes as a function of n nodes and a constant edge ratio
+#Testing brute force runtimes as a function of n nodes and a constant edge ratio of 3/4
 def nodes_brute_benchmark(end_node_count):
+    x = np.array([])
+    y = np.array([])
     print(f'---- Runtime as a function of n | Testing brute force algorithm ----')
     for i in range(3, end_node_count):
         total_runtime = 0
         n = i
-        m = i*(i-1)//3
+        m = 3*i*(i-1)//8
         
         for j in range(50):
             g = basetree_random_graph(n,m)
@@ -26,16 +30,26 @@ def nodes_brute_benchmark(end_node_count):
             total_runtime += runtime
         
         average_runtime = total_runtime/50
+        x = np.append(x, n)
+        y = np.append(y, average_runtime)
         print(f'Number of Nodes: {n}, Number of Edges: {m}, Runtime: {average_runtime}')
+    
+    plt.scatter(x, y)
+    plt.xlabel('Number of Nodes') 
+    plt.ylabel('Runtime (seconds)')
+    plt.title('Runtime of Brute-Force algorithm with increasing nodes')
+    plt.show()
 
 
-#Testing heuristic runtimes as a function of n nodes and a constant edge ratio
+#Testing heuristic runtimes as a function of n nodes and a constant edge ratio of 3/4
 def nodes_antigreedy_benchmark(end_node_count):
+    x = np.array([])
+    y = np.array([])
     print(f'---- Runtime as a function of n | Testing antigreedy heuristic ----')
     for i in range(3, end_node_count):
         total_runtime = 0
         n = i
-        m = i*(i-1)//3
+        m = 3*i*(i-1)//8
         
         for j in range(50):
             g = basetree_random_graph(n,m)
@@ -46,11 +60,20 @@ def nodes_antigreedy_benchmark(end_node_count):
             total_runtime += runtime
         
         average_runtime = total_runtime/50
+        x = np.append(x, n)
+        y = np.append(y, average_runtime)
         print(f'Number of Nodes: {n}, Number of Edges: {m}, Runtime: {average_runtime}')
 
+    plt.scatter(x, y)
+    plt.xlabel('Number of Nodes') 
+    plt.ylabel('Runtime (seconds)')
+    plt.title('Runtime of Heuristic with increasing nodes')
+    plt.show()
 
 #Testing brute force runtimes as a function of m edges and a constant node count
 def edges_brute_benchmark(number_of_nodes):
+    x = np.array([])
+    y = np.array([])
     n = number_of_nodes
     m_lb = n - 1
     m_ub = n*(n-1)//2
@@ -67,11 +90,21 @@ def edges_brute_benchmark(number_of_nodes):
             total_runtime += runtime
         
         average_runtime = total_runtime/50
+        x = np.append(x, m)
+        y = np.append(y, average_runtime)
         print(f'Number of Nodes: {n}, Number of Edges: {m}, Runtime: {average_runtime}')
+
+    plt.scatter(x, y)
+    plt.xlabel('Number of Edges') 
+    plt.ylabel('Runtime (seconds)')
+    plt.title('Runtime of Brute-Force algorithm with increasing edges')
+    plt.show()
 
 
 #Testing brute force runtimes as a function of m edges and a constant node count
 def edges_antigreedy_benchmark(number_of_nodes):
+    x = np.array([])
+    y = np.array([])
     n = number_of_nodes
     m_lb = n - 1
     m_ub = n*(n-1)//2
@@ -88,5 +121,12 @@ def edges_antigreedy_benchmark(number_of_nodes):
             total_runtime += runtime
         
         average_runtime = total_runtime/50
+        x = np.append(x, m)
+        y = np.append(y, average_runtime)
         print(f'Number of Nodes: {n}, Number of Edges: {m}, Runtime: {average_runtime}')
-
+    
+    plt.scatter(x, y)
+    plt.xlabel('Number of Edges') 
+    plt.ylabel('Runtime (seconds)')
+    plt.title('Runtime of Heuristic with increasing edges')
+    plt.show()
