@@ -13,3 +13,40 @@ If I were to try and fix this, it would very likely become a recursive function 
 For research, I search online about the longest path of an undirected, unweighted graph and found very little as it is an NP-hard problem. 
 However, there were people talking about longest path on unweighted trees, which I remember Bart talking about in the first meeting we had. 
 I also saw people were discussing both DFS and BFS so i wonder if those can somehow be used on undirected, unweighted graphs in general.
+
+
+7/15 Update:
+Today I worked on 3 things:
+
+    1. Cleaning code and git repo as per Bart and Cassaundra's suggestions
+    2. Wrote and ran a benchmarking program for testing runtimes of my brute-force longest path algorithm and my antigreedy heuristic
+    3. Read the paper explaining Dijkstra's formula and attempted to implement it into Python
+
+For cleaning my code and repo, I basically went through a checklist of my notes from the 7/14 weekly meeting:
+    - Added basic overview and name to the top of all files
+    - Changed all file names to lowercase
+    - Change file names to better describe their function
+    - Streamlined areas of code that were in need of some revisions
+
+For benchmarking, I did as Bart suggested and ran 4 functions, two for the brute-force algorithm, and two for my heuristic. 
+I tested both as functions of n (nodes) and m (edges) and found that many of the functions had exponential trendlines.
+I ran the 4 functions in 2 seperate runs to get more results, but overall found that the graphs in run 1 matched those in run 2
+Also I found that my heuristic was far more efficient than the brute-force algorithm, allowing me to run much larger node and edge ranges.
+Note: When testing the runtimes as a function of nodes, Run1 and Run2 were both done with the 3/4 the maximum amount of possible edges.
+The graphs that I got from benchmarking are in the folder labeled 'longest_path_benchmarking_data'
+
+For Dijstrka's algorithm, I read the paper. Much of it was quite confusing, but I felt like I understood enough to implement it.
+I understood that there were 2 breadth first searches performed to find two "extremes" in a tree in order to find the longest path.
+I programmed that in python and uploaded it to my repo under the name 'implementing_dijkstras'
+
+
+7/18 Update:
+Today I worked mainly worked on some ideas that I had.
+
+Using Dijkstra's algorithm that I programmed last Friday, I tried to use it on graphs other than trees and went on a deep dive 
+to see if I could convert non-tree graphs into tree-graphs using Prim's or Kruksal's spanning tree algorithms.
+
+I also looked into depth first search to see how it might help me in my heuristics.
+
+Currently, for both of these items, I still have some ideas I want to test tomorrow, but today they did not yield too much.
+
