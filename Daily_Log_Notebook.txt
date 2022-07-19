@@ -50,3 +50,16 @@ I also looked into depth first search to see how it might help me in my heuristi
 
 Currently, for both of these items, I still have some ideas I want to test tomorrow, but today they did not yield too much.
 
+
+7/19 Update:
+Today I worked on 2 things:
+
+    1. Finish testing my ideas for topological sort, DFS, and spanning tree related code
+    2. Worked on the new algorithm that Bart gave me
+
+For testing my own ideas, I thought that I was onto something with DFS and spanning trees by cutting unwanted edges into a tree so I could use Dijkstra's tree algorithm.
+This did not yield any success, however, it does seem like I was on the right track.
+
+For the new algorithm that Bart gave me, I worked on internalizing what it was doing and drawing a few proof-of-concept graphs to experiment with it.
+It turns out that the direction I was going with DFS and spanning trees was the right direction with the wrong approach.
+I began to do some concept testing with code in a new file titled "graph_pruning.py" in my github project repo, and will contineu to work on it tomorrow
