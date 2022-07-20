@@ -1,7 +1,31 @@
+#Cuts a graph into a tree
+#Justin Xie 2022
+
 import copy
 import igraph as ig
 from treestart_gen_random_graph import basetree_random_graph
 from find_longest_path import find_longest_path
+
+#Below is the PseudoCode for this heuristic:
+
+# To prune the "shortcuts" from a graph and turn it into a tree
+
+# let n be the number of nodes, m be the number of edges
+
+# for cut from 0 to the m - (n-1)
+
+#    map each vertex to its total periphery
+#    source_vertices = sort vertices by lowest to highest total periphery
+
+#    for source_vertex in source_vertices
+#        target_vertices = sort neighboring vertices by lowest to highest total periphery
+
+#        for target_vertex in target_vertices
+#            edge = source_vertex to target_vertex
+#            if graph is connected when edge is removed
+#                move to next cut
+#            else
+#                next edge
 
 
 #Checks if graphs if connected by finding the number of clusters
