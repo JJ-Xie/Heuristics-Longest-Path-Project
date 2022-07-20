@@ -63,3 +63,18 @@ This did not yield any success, however, it does seem like I was on the right tr
 For the new algorithm that Bart gave me, I worked on internalizing what it was doing and drawing a few proof-of-concept graphs to experiment with it.
 It turns out that the direction I was going with DFS and spanning trees was the right direction with the wrong approach.
 I began to do some concept testing with code in a new file titled "graph_pruning.py" in my github project repo, and will contineu to work on it tomorrow
+
+
+7/20 Update
+Today I worked on:
+
+    1. The Periphery Pruning Heuristic
+
+Today, I was able to create a program that find the total periphery at each vertex and colors it a color on a gradient, relative to the other vertex's total periphery. 
+
+I also was able to create a heuristic that removes edges that connect the vertices with the lowest periphery values. 
+The heuristic was somewhat accurate when the raph was small (around 7 or 8 vertices), but got more inaccurate as the number of vertices increased.
+As it turns out, after writing my pseudocode and discussing with Bart, I realized that I had implemented a different version than we had initially discussed.
+
+Tomorrow, I hope to implement another version of the heuristic that removes edges that connect the vertices with the highest periphery values.
+I also hope to implement the heuristic that maximizes the overall periphery of a graph. I'll see how that goes tomorrow.
