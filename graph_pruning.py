@@ -12,38 +12,22 @@ def check_connection(graph):
     else:
         return False
 
+#Finds the total periphery of a vertex by adding the shortest paths to all other nodes together
+def total_point_periphery(graph, vertex):
+    total_periphery = 0
 
-#Finds the periphery of a vertex
-def point_periphery(graph, vertex):
-    periphery = 0
+    #Loops through all neighbor vertices to find total of shortest paths to those vertices
+    for other_vertex in graph.vs:
+        total_periphery += graph.shortest_paths(vertex, other_vertex)[0][0]
 
-    #Loops through all other vertices to find the longest shortest path which is the periphery
-    for i in range(len(graph.vs)):
-        if i == vertex:
-            continue
-        else:
-            shortest_path = graph.shortest_paths(vertex, i)[0][0]
-            if  shortest_path > periphery:
-                periphery = shortest_path
-    return periphery
+    return total_periphery
 
 
-#Finds the total periphery of the graph
-def total_periphery(graph):
-    total = 0
-    for i in range(len(graph.vs)):
-        p = point_periphery(graph, i)
-        print(p)
-        total += p
-    
-    return total
-
-
-#Creates a dictionary with the keys being the vertices and the values being the periphery at that vertex 
-def periphery_mapping(graph):
+#Creates a dictionary mapping the vertices to their total periphery values
+def total_periphery_mapping(graph):
     mapping = {}
     for i in range(len(graph.vs)):
-        p = point_periphery(graph, i)
+        p = total_point_periphery(graph, i)
         mapping[i] = p
     
     return mapping
@@ -139,6 +123,6 @@ def prune(graph, originate_vertex_order, mapping):
 #Prunes so the Dijkstra longest path in a tree algorithm can work
 def prune_graph(graph):
     for cuts in range(graph.ecount() - (len(graph.vs) - 1)):
-        p_mapping = periphery_mapping(graph)
+        p_mapping = total_periphery_mapping(graph)
         source_prune_order = possible_source_vertices(graph, p_mapping)
         prune(graph, source_prune_order, p_mapping)
