@@ -19,8 +19,6 @@
 from cmath import inf
 import copy
 import igraph as ig
-from treestart_gen_random_graph import basetree_random_graph
-from find_longest_path import find_longest_path
 
 
 #Finds the total periphery of a vertex by adding the shortest paths to all other nodes together
