@@ -1,4 +1,4 @@
-#Turning a graph into a tree by "stretching the string"
+#Turning a graph into a tree by cutting to maximize periphery
 #Justin Xie 2022
 
 #Below is the Pseudocode for this heuristic
@@ -47,6 +47,7 @@ def total_periphery_mapping(graph):
     return mapping
 
 
+#Finds total periphery of a graph
 def graph_total_periphery(graph):
     mapping = total_periphery_mapping(graph)
     total = 0
@@ -55,12 +56,16 @@ def graph_total_periphery(graph):
     return total
 
 
+#Cuts a graph into a tree by cutting the edges that maximize the total periphery of the graph
 def graph_stretching(graph):
     n = len(graph.vs)
     m = len(graph.es)
+
     for cut in range(m - (n-1)):
         best_edge = ()
         highest_total_periphery = 0
+
+        #A temporary copy is created to test and find which edge yields the best result
         for e in graph.es:
             temp_g = copy.deepcopy(graph)
             temp_g.delete_edges(e.tuple)
