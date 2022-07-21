@@ -78,3 +78,18 @@ As it turns out, after writing my pseudocode and discussing with Bart, I realize
 
 Tomorrow, I hope to implement another version of the heuristic that removes edges that connect the vertices with the highest periphery values.
 I also hope to implement the heuristic that maximizes the overall periphery of a graph. I'll see how that goes tomorrow.
+
+
+7/21 Update:
+Today I worked on:
+
+    1. More Periphery Cutting/Pruning heuristics
+
+Today I was able to write very similar heuristics. One heuristic finds the edge in the graph that, when removed, maximizes the total periphery of the entire graph.
+The other heuristic was one that found the vertex with the lowest total periphery and found the edge that would maximize the total periphery at that point, if an edge was possible to remove.
+
+Both these heuristics were pretty accurate for smaller less complex graphs, but when scaled up were very inaccurate. 
+I noticed that all 3 of the periphery heuristics so far are slower and on average, more inaccurate compared to my previous greedy-based heuristic.
+From a quick benchmark that I did, the periphery heuristic that combs the entire graph is the slowest out of all. 
+
+There are a couple of other variations that I might try to implement tomorrow. It most depends on what is discussed in the meeting tonight.
