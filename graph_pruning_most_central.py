@@ -24,8 +24,6 @@
 
 import copy
 import igraph as ig
-from treestart_gen_random_graph import basetree_random_graph
-from find_longest_path import find_longest_path
 
 
 #Checks if graphs if connected by finding the number of clusters
