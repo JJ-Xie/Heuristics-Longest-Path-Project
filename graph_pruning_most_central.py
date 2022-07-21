@@ -1,11 +1,6 @@
 #Cuts a graph into a tree
 #Justin Xie 2022
 
-import copy
-import igraph as ig
-from treestart_gen_random_graph import basetree_random_graph
-from find_longest_path import find_longest_path
-
 #Below is the PseudoCode for this heuristic:
 
 # To prune the "shortcuts" from a graph and turn it into a tree
@@ -27,6 +22,11 @@ from find_longest_path import find_longest_path
 #            else
 #                next edge
 
+import copy
+import igraph as ig
+from treestart_gen_random_graph import basetree_random_graph
+from find_longest_path import find_longest_path
+
 
 #Checks if graphs if connected by finding the number of clusters
 def check_connection(graph):
@@ -42,7 +42,10 @@ def total_point_periphery(graph, vertex):
 
     #Loops through all neighbor vertices to find total of shortest paths to those vertices
     for other_vertex in graph.vs:
-        total_periphery += graph.shortest_paths(vertex, other_vertex)[0][0]
+        if other_vertex == vertex:
+            continue
+        else:
+            total_periphery += graph.shortest_paths(vertex, other_vertex)[0][0]
 
     return total_periphery
 
@@ -55,6 +58,13 @@ def total_periphery_mapping(graph):
         mapping[i] = p
     
     return mapping
+
+
+def graph_total_periphery(mapping):
+    total = 0
+    for key in mapping.keys():
+        total += mapping[key]
+    return total
 
 
 #Sorts the of a graph from lowest to highest periphery
