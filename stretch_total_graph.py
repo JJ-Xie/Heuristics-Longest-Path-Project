@@ -16,9 +16,10 @@
 #            edge = edge to be cut
 #    cut edge from graph
 
-from cmath import inf
 import copy
 import igraph as ig
+from cmath import inf
+from implementing_dijkstras import dijkstras_tree
 
 
 #Finds the total periphery of a vertex by adding the shortest paths to all other nodes together
@@ -74,4 +75,9 @@ def graph_stretching(graph):
         graph.delete_edges(best_edge)
     return graph
 
-        
+
+#Runs Dijkstras tree algorithm on the total stretch graph to find the longest path in the graph
+def graph_stretching_longest_path(graph):
+    tree = graph_stretching(graph)
+    longest_path = dijkstras_tree(tree)
+    return longest_path

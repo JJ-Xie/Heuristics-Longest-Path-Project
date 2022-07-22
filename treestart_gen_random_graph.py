@@ -23,7 +23,6 @@ import random
 #        delete (i, j) from E
 
 
-
 #Below is the Python implementation of the above pseudocode
 def basetree_random_graph(n, m):
     
@@ -36,10 +35,12 @@ def basetree_random_graph(n, m):
 
     g.add_vertices(n)
 
+    
     for i in range(len(g.vs)):
         g.vs[i]["id"]= i
         g.vs[i]["label"]= str(i)
     
+
     #Finding all possible source-target vertex pairs by looping through all vertices and pairing them with all vertices larger than it
     #Avoids redudant pairs
     possible_edge_set = set()
@@ -64,5 +65,28 @@ def basetree_random_graph(n, m):
         i = edge_pair[0]
         j = edge_pair[1]
         g.add_edge(i,j)
+    
+    return g
+
+
+def tree_gen(n):
+    g = ig.Graph(directed=False)
+
+    g.add_vertices(n)
+
+    for i in range(len(g.vs)):
+        g.vs[i]["id"]= i
+        g.vs[i]["label"]= str(i)
+
+    possible_edge_set = set()
+    for i in range(n):
+        for j in range(i+1, n):
+            possible_edge_set.add((i, j))
+
+    for i in range(1, n):
+        j = random.randint(0, i-1)
+        edge_pair = (j, i)
+        g.add_edge(i,j)
+        possible_edge_set.remove(edge_pair)   
     
     return g

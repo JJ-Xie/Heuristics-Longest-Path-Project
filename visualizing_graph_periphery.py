@@ -52,7 +52,7 @@ def vertex_color_assignment(graph, mapping, color_mapping):
 
 
 if __name__ == "__main__":
-    g = basetree_random_graph(50, 80)
+    g = basetree_random_graph(20, 35)
 
     mapping = total_periphery_mapping(g)
     color_mapping = color_assignment(g, mapping)

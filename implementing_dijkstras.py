@@ -28,7 +28,7 @@ def bfs(graph, start_node):
 
 
 #Utilizing the breadth first search algorithm twice to find to extremes of the graph to find the longest path
-def testing_dijkstras(graph):
+def dijkstras_tree(graph):
         first = bfs(graph, 0)
         second = bfs(graph, first)
         longest_path = graph.shortest_paths(first, second)

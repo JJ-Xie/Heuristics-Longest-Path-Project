@@ -1,4 +1,4 @@
-#Heuristic for longest path problem utilizing the opposite of the greedy algorithm
+#Heuristic for longest path problem based on the greedy heuristic
 #Justin Xie 2022
 
 import igraph as ig
@@ -96,4 +96,4 @@ def altruist_longest_path(graph):
             longest_path_track = [path_tracker]
         elif path_length == longest_path_length:
             longest_path_track.append(path_tracker)
-    return longest_path_length, longest_path_track
+    return longest_path_length

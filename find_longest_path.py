@@ -20,5 +20,5 @@ def find_longest_path(g):
     if longest == 0:
         return None
     else:
-        return longest - 1, longest_path
+        return longest - 1
 

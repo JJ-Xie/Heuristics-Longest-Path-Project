@@ -24,6 +24,7 @@
 
 import copy
 import igraph as ig
+from implementing_dijkstras import dijkstras_tree
 
 
 #Checks if graphs if connected by finding the number of clusters
@@ -139,3 +140,8 @@ def stretch_node(graph):
         graph.delete_edges([edge])
 
     return graph
+
+def stretch_nodes_longest_path(graph):
+    tree = stretch_node(graph)
+    longest_path = dijkstras_tree(tree)
+    return longest_path
