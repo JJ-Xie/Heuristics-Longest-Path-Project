@@ -140,4 +140,4 @@ if __name__ == "__main__":
         stretch_nodes_longest_path
         ]
     
-    plot_altering_vertices(error_accuracy, funcs_to_test, 4, 10, 0.67, 200)
+    plot_altering_edges(complete_accuracy, funcs_to_test, 8, 200)
