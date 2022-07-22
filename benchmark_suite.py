@@ -1,9 +1,10 @@
 
 import igraph as ig
+import matplotlib.pyplot as plt
 from treestart_gen_random_graph import basetree_random_graph
 from find_longest_path import find_longest_path
 from implementing_heuristics import altruist_longest_path
-from graph_pruning_most_central import prune_graph_longest_path
+from graph_pruning_most_central import prune, prune_graph_longest_path
 from stretch_total_graph import graph_stretching_longest_path
 from stretch_lowest_node import stretch_nodes_longest_path
 
@@ -54,8 +55,48 @@ def find_heuristic_fail(n, m, func, runs):
             ig.plot(graph)
         return failed_graphs
 
+
+#Plots the results of a benchmark when altering the number of vertices
+def plot_perf_alt_n(bench, func, starting_vertex_count, ending_vertex_count, edge_max_ratio, runs):
+    x = []
+    y = []
+    x_label = input('x-axis label: ')
+    y_label = input('y-axis label: ')
+    title = input('Graph Title: ')
+    for number_of_vertices in range(starting_vertex_count, ending_vertex_count + 1):
+        n = number_of_vertices
+        m = int(n*(n-1)//2 * edge_max_ratio)
+        x.append(n)
+        y.append(bench(n, m, func, runs))
+    plt.scatter(x, y)
+    plt.xlabel(x_label) 
+    plt.ylabel(y_label)
+    plt.title(title)
+    plt.show()
+
+def plot_perf_alt_m(bench, func, vertex_count, runs):
+    x = []
+    y = []
+    x_label = input('x-axis label: ')
+    y_label = input('y-axis label: ')
+    title = input('Graph Title: ')
+    starting_edge_count = vertex_count - 1
+    ending_edge_count = vertex_count * (vertex_count - 1) // 2
+    for number_of_vertices in range(starting_edge_count, ending_edge_count + 1):
+        n = vertex_count
+        m = number_of_vertices
+        x.append(m)
+        y.append(bench(n, m, func, runs))
+    plt.scatter(x, y)
+    plt.xlabel(x_label) 
+    plt.ylabel(y_label)
+    plt.title(title)
+    plt.show()
+
+
+
 if __name__ == "__main__":
-    funcs_to_test = [altruist_longest_path, prune_graph_longest_path, graph_stretching_longest_path, stretch_nodes_longest_path]
+    funcs_to_test = [prune_graph_longest_path]
     for f in funcs_to_test:
-        output = find_heuristic_fail(4,5,f,10)
+        plot_perf_alt_m(complete_accuracy, f, 7, 10000)
     
