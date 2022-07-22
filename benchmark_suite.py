@@ -46,10 +46,10 @@ def find_heuristic_fail(n, m, func, runs):
         if actual_lp != heuristic_lp:
             failed_graphs.append(g)
     if len(failed_graphs) == 0:
-        print(f'''---- Error Accuracy Benchmark ----\nFunction: {func.__name__}\nNodes: {n}\nEdges: {m}\nRuns: {runs}\nResult: No graphs resulted in wrong longest path\n''')
+        print(f'''---- Finding Heuristic Fail Benchmark ----\nFunction: {func.__name__}\nNodes: {n}\nEdges: {m}\nRuns: {runs}\nResult: No graphs resulted in wrong longest path\n''')
         return None
     else:
-        print((f'''---- Error Accuracy Benchmark ----\nFunction: {func.__name__}\nNodes: {n}\nEdges: {m}\nRuns: {runs}\nResult: {len(failed_graphs)}graphs resulted in wrong longest path\n'''))
+        print((f'''---- Finding Heuristic Fail Benchmark ----\nFunction: {func.__name__}\nNodes: {n}\nEdges: {m}\nRuns: {runs}\nResult: {len(failed_graphs)}graphs resulted in wrong longest path\n'''))
         for graph in failed_graphs:
             ig.plot(graph)
         return failed_graphs
