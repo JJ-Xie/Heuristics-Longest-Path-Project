@@ -93,3 +93,19 @@ I noticed that all 3 of the periphery heuristics so far are slower and on averag
 From a quick benchmark that I did, the periphery heuristic that combs the entire graph is the slowest out of all. 
 
 There are a couple of other variations that I might try to implement tomorrow. It most depends on what is discussed in the meeting tonight.
+
+
+7/22 Update:
+Today I worked on:
+
+    1. The Benchmarking Suite
+    2. Outlining my paper
+
+Today I worked on creating a more organize and easier to use benchmark suite. I was able to successfully create most of it. 
+Currently it tests for accuracy and error and has the ability to plot those for all heuristics. Later, I plan on creating runtime versions, but that is not as important right now.
+I ran some test benchmarking for both changes in edges and changes in vertices. 
+For changes in edges I noticed the accuracy of most heuristics, especially the periphery ones, was significantly worse in the beginning-middle area. 
+The accuracy was a canyon-like shape.
+
+For my paper, I opened a new Overleaf file and found an online sample format as my temporary format. I outlined my paper into sections.
+I also wrote a very short introduction that could be expanded upon, or could be revised into an abstract.

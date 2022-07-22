@@ -44,7 +44,7 @@ def best_next(graph, vertex, availability, potential):
         if all_neighbors[i] in availability:
             node = all_neighbors[i]
             score = potential[node]
-            if tracker == 0:
+            if tracker == 0 and score != 0:
                 greatest_score = score
                 next_candidate = node
                 tracker += 1
@@ -97,3 +97,4 @@ def altruist_longest_path(graph):
         elif path_length == longest_path_length:
             longest_path_track.append(path_tracker)
     return longest_path_length
+    
