@@ -2,10 +2,12 @@ import igraph as ig
 import os
 from treestart_gen_random_graph import basetree_random_graph
 
+#Writes graph into lgl file at given location
 def write(graph, location, name):
     os.chdir(location)
     graph.write_lgl(name, names=None, weights=None)
 
+#Reads graph from lgl file
 def read(file):
     graph = ig.Graph.Read_Lgl(file, names=False, directed=False)
     for i in range(len(graph.vs)):

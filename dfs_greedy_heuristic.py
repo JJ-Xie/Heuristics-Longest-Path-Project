@@ -32,6 +32,8 @@ def subtract_potential(graph, current_vertex, potential):
     return potential
 
 
+#Compares nodes based on the internal path length
+#Highest internal path length is the next vertex chose
 def tie_dfs(start_nodes, graph, availability):
     highest_internal = 0
     for start in start_nodes:
@@ -40,7 +42,6 @@ def tie_dfs(start_nodes, graph, availability):
             if i not in availability:
                 visited.add(i)
         internal = dfs.execute_dfs(graph, start, visited, availability)
-
         if internal > highest_internal:
             highe = internal
             best_node = start
@@ -118,17 +119,3 @@ def improved_altruist_longest_path(graph):
         elif path_length == longest_path_length:
             longest_path_track.append(path_tracker)
     return longest_path_length
-
-'''
-g = ig.Graph(directed=False)
-
-g.add_vertices(8)
-
-for i in range(len(g.vs)):
-    g.vs[i]["id"]= i
-    g.vs[i]["label"]= str(i)
-
-g.add_edges([(0,1),(0,2),(0,3),(0,4),(1,2),(1,4),(2,6),(3,7),(4,5)])
-
-print(altruist_longest_path(g))
-'''

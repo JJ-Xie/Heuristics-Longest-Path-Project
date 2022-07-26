@@ -7,7 +7,7 @@
 import igraph as ig
 import os
 import matplotlib.pyplot as plt
-from benchmark_suite_graph_creation import read
+from graph_to_file import read
 from treestart_gen_random_graph import basetree_random_graph
 from find_longest_path import find_longest_path
 from implementing_heuristics import altruist_longest_path

@@ -97,4 +97,3 @@ def altruist_longest_path(graph):
         elif path_length == longest_path_length:
             longest_path_track.append(path_tracker)
     return longest_path_length
-    

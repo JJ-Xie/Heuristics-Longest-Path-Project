@@ -109,3 +109,24 @@ The accuracy was a canyon-like shape.
 
 For my paper, I opened a new Overleaf file and found an online sample format as my temporary format. I outlined my paper into sections.
 I also wrote a very short introduction that could be expanded upon, or could be revised into an abstract.
+
+
+7/25 Update:
+Today I worked on:
+
+    1. Improving the greedy heuristic
+    2. Improving benchmark suite
+
+Today involved a lot of troubleshooting and bug fixing for both tasks that i was working on.
+
+For the greedy heuristic, in my small graph visualization/testing, I thought that I could apply DFS to vertices with equal neighbors to act as a tiebreaker.
+However, that proved more difficult to implement than I thought it would. Eventually I got it to work. It is in 'dfs_greedy_heuristic'
+When testing it on the same set of graphs as the old greedy heuristic, it performed marginally worse. 
+
+For the benchmark suite, I spent time troubleshooting files and directory names. 
+I created functions for reading and writing graphs into lgl files. Located in 'graph_to_file.py'
+I added the file reading capability into the complete accuracy benchmark and was testing it. Still a work in progress
+
+Tomorrow, I need to finish rounding out the benchmark suite with files and command line arguments.
+I also need to update to README to be more detailed.
+If I have time, I will try to figure out why my heuristic did not improve after I added DFS.
