@@ -4,19 +4,21 @@
 # This code benchmarks various longest-path heuristics for
 # path quality and performance.
 
-from re import A
 import igraph as ig
+import os
 import matplotlib.pyplot as plt
+from benchmark_suite_graph_creation import read
 from treestart_gen_random_graph import basetree_random_graph
 from find_longest_path import find_longest_path
 from implementing_heuristics import altruist_longest_path
 from graph_pruning_most_central import prune_graph_longest_path
 from stretch_total_graph import graph_stretching_longest_path
 from stretch_lowest_node import stretch_nodes_longest_path
+from dfs_greedy_heuristic import improved_altruist_longest_path
 
 
 def print_base_stats(heuristic, n, m, runs):
-    print(f"Heurisic: {heuristic.__name__}")
+    print(f"Heuristic: {heuristic.__name__}")
     print(f"Nodes: {n}")
     print(f"Edges: {m}")
     print(f"Runs: {runs}")
@@ -24,18 +26,24 @@ def print_base_stats(heuristic, n, m, runs):
 
 # Benchmarks how well a heuristic outputs 
 # the exact longest path.
-def complete_accuracy(n, m, heuristic, runs):
+def complete_accuracy(n, m, heuristic):
     accurate = 0
-    for run in range(runs):
-        g = basetree_random_graph(n, m)
+    location = '/home/justin/work/Heuristics-Longest-Path-Project/benchmark_suite_graph_collection'
+    runs = len(os.listdir(location))
+    os.chdir(location)
+    for file in os.listdir(location):
+        g = read(file)
         actual_lp = find_longest_path(g)
         heuristic_lp = heuristic(g)
+        print(f'Actual: {actual_lp}')
+        print(f'Heuristic: {heuristic_lp}')
         if actual_lp == heuristic_lp:
             accurate += 1
     accuracy_rate = round(accurate / runs * 100, 2)
     print("---- Complete Accuracy Benchmark ----")
     print_base_stats(heuristic, n, m, runs)
     print(f"Accuracy Rate: {accuracy_rate}")
+    print(f"{accurate} out of {runs}")
     return accuracy_rate
 
 
@@ -137,7 +145,6 @@ if __name__ == "__main__":
         prune_graph_longest_path,
         altruist_longest_path,
         graph_stretching_longest_path,
-        stretch_nodes_longest_path
+        stretch_nodes_longest_path,
+        improved_altruist_longest_path
         ]
-    
-    plot_altering_edges(complete_accuracy, funcs_to_test, 8, 200)
