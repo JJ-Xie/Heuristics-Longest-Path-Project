@@ -130,3 +130,4 @@ I added the file reading capability into the complete accuracy benchmark and was
 Tomorrow, I need to finish rounding out the benchmark suite with files and command line arguments.
 I also need to update to README to be more detailed.
 If I have time, I will try to figure out why my heuristic did not improve after I added DFS.
+I also need to continue my report/paper.
