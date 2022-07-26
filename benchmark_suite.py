@@ -15,6 +15,8 @@ from graph_pruning_most_central import prune_graph_longest_path
 from stretch_total_graph import graph_stretching_longest_path
 from stretch_lowest_node import stretch_nodes_longest_path
 from dfs_greedy_heuristic import dfs_greedy_longest_path
+from old_greedy_dfs import old_greedy
+from greedy_antigreedy_heuristics import using_both
 
 
 def print_base_stats(heuristic, n, m, runs):
@@ -26,12 +28,14 @@ def print_base_stats(heuristic, n, m, runs):
 
 # Benchmarks how well a heuristic outputs 
 # the exact longest path.
-# Given a certain number of vertices, edges, and where the benchmark graph set is located
+# Given a certain number of vertices, 
+# edges, and where the benchmark graph set is located
 def complete_accuracy(n, m, heuristic, location):
     accurate = 0
     os.chdir(location)
     runs = len(os.listdir())
-    for file in os.listdir():
+    for file in sorted(os.listdir()):
+        print(f'Running: {file}')
         g = read(file)
         actual_lp = find_longest_path(g)
         heuristic_lp = heuristic(g)
@@ -47,12 +51,13 @@ def complete_accuracy(n, m, heuristic, location):
 
 # Benchmarks how far off a function is from the actual
 # longest path.
-# Given a certain number of vertices, edges, and where the benchmark graph set is located
+# Given a certain number of vertices, 
+# edges, and where the benchmark graph set is located
 def error_accuracy(n, m, heuristic, location):
     total_difference = 0
     os.chdir(location)
     runs = len(os.listdir())
-    for file in os.listdir():
+    for file in sorted(os.listdir()):
         g = read(file)
         actual_lp = find_longest_path(g)
         heuristic_lp = heuristic(g)
@@ -64,6 +69,13 @@ def error_accuracy(n, m, heuristic, location):
     print(f"Average Error: {average_difference}")
     return average_difference
 
+
+def execute_specific_benchmark_set(n, m, heuristic, benchmark):
+    directory = os.environ.get('PWD')
+    bench_set = f'{directory}/benchmark_graph_sets/'
+    os.chdir(bench_set)
+    location = f'{bench_set}{n}_{m}'
+    benchmark(n, m, heuristic, location)
 
 # Benchmarks all graph sets on given heuristic
 def execute_all_benchmark_sets(heuristics, benchmark): 
@@ -170,7 +182,7 @@ if __name__ == "__main__":
         dfs_greedy_longest_path,
         prune_graph_longest_path,
         graph_stretching_longest_path,
-        stretch_nodes_longest_path,
+        stretch_nodes_longest_path
         ]
 
-    plot_altering_edges(9, funcs_to_test, complete_accuracy)
+    execute_specific_benchmark_set(20, 35, using_both, complete_accuracy)
