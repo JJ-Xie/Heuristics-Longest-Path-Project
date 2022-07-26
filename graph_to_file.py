@@ -15,24 +15,26 @@ def read(file):
     return graph
 
 if __name__ == "__main__":
-    n = input('N: ')
-    m = input('M: ')
+    n = input('Number of Vertices: ')
+    upper_bound = input("Upper Bound Edge Count: ")
+    for i in range(n-1, upper_bound+1):
+        m = i
+        if n < 10:
+            str_n = f'0{n}'
+        else:
+            str_n = str(n)
 
-    if n < 10:
-        str_n = f'0{n}'
-    else:
-        str_n = str(n)
-    if m < 10:
-        str_m = f'0{m}'
-    else:
-        str_m = str(m)
+        if m < 10:
+            str_m = f'0{m}'
+        else:
+            str_m = str(m)
 
-    directory = os.environ.get('PWD')
-    os.chdir(f'{directory}/benchmark_graph_sets')
-    os.mkdir(f'{str_n}_{str_m}')
-    bench_set = f'{directory}/benchmark_graph_sets/{str_n}_{str_m}'
-    os.chdir(bench_set)
-    for i in range(100):
-        g = basetree_random_graph(n, m)
-        file_name = f'{str_n}_{str_m}_graph_{i}'
-        write(g, file_name)
+        directory = os.environ.get('PWD')
+        os.chdir(f'{directory}/benchmark_graph_sets')
+        os.mkdir(f'{str_n}_{str_m}')
+        bench_set = f'{directory}/benchmark_graph_sets/{str_n}_{str_m}'
+        os.chdir(bench_set)
+        for i in range(100):
+            g = basetree_random_graph(n, m)
+            file_name = f'{str_n}_{str_m}_graph_{i}'
+            write(g, file_name)

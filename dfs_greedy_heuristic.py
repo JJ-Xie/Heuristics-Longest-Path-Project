@@ -4,7 +4,6 @@
 import igraph as ig
 import dfs
 
-
 #Returns a dictionary with keys representing the vertex and the label representing the number of connections it has (the score)
 def gen_potential(graph):
     potential = {}
@@ -86,7 +85,7 @@ def best_next(graph, vertex, availability, potential):
 
 #Inputs a graph
 #Returns the longest path in the graph
-def improved_altruist_longest_path(graph):
+def dfs_greedy_longest_path(graph):
     longest_path_track = []
     longest_path_length = 0
 

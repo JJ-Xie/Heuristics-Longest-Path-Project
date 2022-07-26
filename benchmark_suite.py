@@ -14,8 +14,7 @@ from implementing_heuristics import altruist_longest_path
 from graph_pruning_most_central import prune_graph_longest_path
 from stretch_total_graph import graph_stretching_longest_path
 from stretch_lowest_node import stretch_nodes_longest_path
-from dfs_greedy_heuristic import improved_altruist_longest_path
-from greedy_antigreedy_heuristics import using_both
+from dfs_greedy_heuristic import dfs_greedy_longest_path
 
 
 def print_base_stats(heuristic, n, m, runs):
@@ -80,26 +79,44 @@ def execute_all_benchmark_sets(heuristics, benchmark):
             benchmark(dir_name_split[0], dir_name_split[1], heuristic, location)
 
 
-# Finds the number of and plots the graphs that cause the
-# heuristic to fail to find the correct longest path
-def find_heuristic_fail(n, m, heuristic, runs):
-    failed_graphs = []
-    for run in range(runs):
-        g = basetree_random_graph(n, m)
-        actual_lp = find_longest_path(g)
-        heuristic_lp = heuristic(g)
-        if actual_lp != heuristic_lp:
-            failed_graphs.append(g)
-    print("---- Finding Heuristic Fail Benchmark ----")
-    print_base_stats(heuristic, n, m, runs)
-    print(f"Result: {len(failed_graphs)} graphs with wrong longest path")
-    if len(failed_graphs) == 0:
-        return None
-    for graph in failed_graphs:
-        ig.plot(graph)
-    return failed_graphs
+# Plots the results of a benchmark when altering
+# the number of edges and keeping the vertices the same
+# Runs all graph sets with the same given vertex count 
+def plot_altering_edges(vertices, heuristics, benchmark):
+    x_label = input('x-axis label: ')
+    y_label = input('y-axis label: ')
+    title = input('Graph Title: ')
+    all_y = []
+    last_x = []
+    for i in range(len(heuristics)):
+        directory = os.environ.get('PWD')
+        bench_set = f'{directory}/benchmark_graph_sets/'
+        os.chdir(bench_set)
+        x = []
+        y = []
+        dir_list = sorted(os.listdir())
+        for dir in dir_list:
+            dir_name_split = dir.split('_')
+            if int(dir_name_split[0]) == vertices:
+                n = vertices
+                m = int(dir_name_split[1])
+                location = f'{bench_set}{dir}'
+                x.append(m)
+                y.append(benchmark(n, m, heuristics[i], location))
+        if y:
+            all_y.append(y)
+        if x:
+            last_x = x
 
-    
+    for i in range(len(all_y)):
+        plt.plot(last_x, all_y[i], label=heuristics[i].__name__)
+    plt.xlabel(x_label)
+    plt.ylabel(y_label)
+    plt.title(title)
+    plt.legend()
+    plt.show()
+
+
 # Plots the results of a benchmark when altering the number of vertices
 # Keeping the edge to maximum possible edges ratio constant
 def plot_altering_vertices(bench, funcs, starting_vertex_count, ending_vertex_count, edge_max_ratio, runs):
@@ -127,53 +144,33 @@ def plot_altering_vertices(bench, funcs, starting_vertex_count, ending_vertex_co
     plt.show()
 
 
-# Plots the results of a benchmark when altering
-# the edges and keeping the vertex count constant
-def plot_altering_edges(vertices, heuristics, benchmark):
-    x_label = input('x-axis label: ')
-    y_label = input('y-axis label: ')
-    title = input('Graph Title: ')
-    all_y = []
-    last_x = []
-    for i in range(len(heuristics)):
-        directory = os.environ.get('PWD')
-        bench_set = f'{directory}/benchmark_graph_sets/'
-        os.chdir(bench_set)
-        x = []
-        y = []
-        dir_list = sorted(os.listdir())
-        for dir in dir_list:
-            dir_name_split = dir.split('_')
-            if int(dir_name_split[0]) == vertices:
-                n = vertices
-                m = int(dir_name_split[1])
-                location = f'{bench_set}{dir}'
-                x.append(m)
-                y.append(benchmark(n, m, heuristics[i], location))
-            
-        if y:
-            all_y.append(y)
-        if x:
-            last_x = x
-
-    for i in range(len(all_y)):
-        plt.plot(last_x, all_y[i], label=heuristics[i].__name__)
-    plt.xlabel(x_label)
-    plt.ylabel(y_label)
-    plt.title(title)
-    plt.legend()
-    plt.show()
+# Finds the number of and plots the graphs that cause the
+# heuristic to fail to find the correct longest path
+def find_heuristic_fail(n, m, heuristic, runs):
+    failed_graphs = []
+    for run in range(runs):
+        g = basetree_random_graph(n, m)
+        actual_lp = find_longest_path(g)
+        heuristic_lp = heuristic(g)
+        if actual_lp != heuristic_lp:
+            failed_graphs.append(g)
+    print("---- Finding Heuristic Fail Benchmark ----")
+    print_base_stats(heuristic, n, m, runs)
+    print(f"Result: {len(failed_graphs)} graphs with wrong longest path")
+    if len(failed_graphs) == 0:
+        return None
+    for graph in failed_graphs:
+        ig.plot(graph)
+    return failed_graphs
 
 
 if __name__ == "__main__":
     funcs_to_test = [
-        prune_graph_longest_path,
         altruist_longest_path,
+        dfs_greedy_longest_path,
+        prune_graph_longest_path,
         graph_stretching_longest_path,
         stretch_nodes_longest_path,
-        improved_altruist_longest_path,
-        using_both
         ]
 
-    plot_altering_edges(6, funcs_to_test, complete_accuracy)
-    #execute_all_benchmark_sets([funcs_to_test[1]], complete_accuracy)
+    plot_altering_edges(9, funcs_to_test, complete_accuracy)

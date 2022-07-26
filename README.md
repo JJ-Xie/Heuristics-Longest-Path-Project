@@ -2,7 +2,7 @@
 Justin Xie, Bart Massey, Cassaundra Smith 2022
 
 # About the Project
-This project aims to use heuristics in the longest path problem in graph theory
+This project aims to use heuristics in the longest simple path problem
 
 # In this Repository
 Currently, in this repository, there are algorithms for generating random, unweighted graph (connected and unconnected). There are also runtime benchmarking programs for these algorithms.
