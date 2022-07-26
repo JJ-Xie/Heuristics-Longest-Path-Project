@@ -3,6 +3,7 @@
 
 import igraph as ig
 
+
 def greed(graph, vertex, available):
     best_option_stats = [0, 0]
     best_option = 0
@@ -42,6 +43,7 @@ def greedy(graph):
         if path_length > largest_path_length:
             largest_path_length = path_length
     return largest_path_length
+
 
 def altruistic(graph, vertex, available):
     best_option_stats = [0, 0]
@@ -90,7 +92,6 @@ def altruism(graph):
                     current = next
             else:
                 to_continue = False
-        print(f'Optimum from Node{i}: {path_order}')
         if path_length > largest_path_length:
             largest_path_length = path_length
             largest_path_order = path_order
@@ -105,4 +106,4 @@ def using_both(graph):
     else:
         THE_longest_path = altruistic_approach
         path_order = altruistic_path
-    return THE_longest_path, path_order
+    return THE_longest_path

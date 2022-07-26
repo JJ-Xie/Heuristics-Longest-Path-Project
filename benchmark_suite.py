@@ -15,6 +15,7 @@ from graph_pruning_most_central import prune_graph_longest_path
 from stretch_total_graph import graph_stretching_longest_path
 from stretch_lowest_node import stretch_nodes_longest_path
 from dfs_greedy_heuristic import improved_altruist_longest_path
+from greedy_antigreedy_heuristics import using_both
 
 
 def print_base_stats(heuristic, n, m, runs):
@@ -26,17 +27,15 @@ def print_base_stats(heuristic, n, m, runs):
 
 # Benchmarks how well a heuristic outputs 
 # the exact longest path.
-def complete_accuracy(n, m, heuristic):
+# Given a certain number of vertices, edges, and where the benchmark graph set is located
+def complete_accuracy(n, m, heuristic, location):
     accurate = 0
-    location = '/home/justin/work/Heuristics-Longest-Path-Project/benchmark_suite_graph_collection'
-    runs = len(os.listdir(location))
     os.chdir(location)
-    for file in os.listdir(location):
+    runs = len(os.listdir())
+    for file in os.listdir():
         g = read(file)
         actual_lp = find_longest_path(g)
         heuristic_lp = heuristic(g)
-        print(f'Actual: {actual_lp}')
-        print(f'Heuristic: {heuristic_lp}')
         if actual_lp == heuristic_lp:
             accurate += 1
     accuracy_rate = round(accurate / runs * 100, 2)
@@ -49,10 +48,13 @@ def complete_accuracy(n, m, heuristic):
 
 # Benchmarks how far off a function is from the actual
 # longest path.
-def error_accuracy(n, m, heuristic, runs):
+# Given a certain number of vertices, edges, and where the benchmark graph set is located
+def error_accuracy(n, m, heuristic, location):
     total_difference = 0
-    for run in range(runs):
-        g = basetree_random_graph(n, m)
+    os.chdir(location)
+    runs = len(os.listdir())
+    for file in os.listdir():
+        g = read(file)
         actual_lp = find_longest_path(g)
         heuristic_lp = heuristic(g)
         accuracy_diffference = actual_lp - heuristic_lp
@@ -62,6 +64,20 @@ def error_accuracy(n, m, heuristic, runs):
     print_base_stats(heuristic, n, m, runs)
     print(f"Average Error: {average_difference}")
     return average_difference
+
+
+# Benchmarks all graph sets on given heuristic
+def execute_all_benchmark_sets(heuristics, benchmark): 
+    directory = os.environ.get('PWD')
+    bench_set = f'{directory}/benchmark_graph_sets/'
+    os.chdir(bench_set)
+    for heuristic in heuristics:
+        dir_list = sorted(os.listdir())
+        print(dir_list)
+        for dir in dir_list:
+            dir_name_split = dir.split('_')
+            location = f'{bench_set}/{dir}'
+            benchmark(dir_name_split[0], dir_name_split[1], heuristic, location)
 
 
 # Finds the number of and plots the graphs that cause the
@@ -113,27 +129,36 @@ def plot_altering_vertices(bench, funcs, starting_vertex_count, ending_vertex_co
 
 # Plots the results of a benchmark when altering
 # the edges and keeping the vertex count constant
-def plot_altering_edges(bench, funcs, vertex_count, runs):
+def plot_altering_edges(vertices, heuristics, benchmark):
     x_label = input('x-axis label: ')
     y_label = input('y-axis label: ')
     title = input('Graph Title: ')
     all_y = []
-    
-    for i in range(len(funcs)):
+    last_x = []
+    for i in range(len(heuristics)):
+        directory = os.environ.get('PWD')
+        bench_set = f'{directory}/benchmark_graph_sets/'
+        os.chdir(bench_set)
         x = []
         y = []
-        starting_edge_count = vertex_count - 1
-        ending_edge_count = vertex_count * (vertex_count - 1) // 2
-        for number_of_vertices in range(starting_edge_count, ending_edge_count + 1):
-            n = vertex_count
-            m = number_of_vertices
-            x.append(m)
-            y.append(bench(n, m, funcs[i], runs))
-        all_y.append(y)
+        dir_list = sorted(os.listdir())
+        for dir in dir_list:
+            dir_name_split = dir.split('_')
+            if int(dir_name_split[0]) == vertices:
+                n = vertices
+                m = int(dir_name_split[1])
+                location = f'{bench_set}{dir}'
+                x.append(m)
+                y.append(benchmark(n, m, heuristics[i], location))
+            
+        if y:
+            all_y.append(y)
+        if x:
+            last_x = x
 
     for i in range(len(all_y)):
-        plt.plot(x, all_y[i], label=funcs[i].__name__)
-    plt.xlabel(x_label) 
+        plt.plot(last_x, all_y[i], label=heuristics[i].__name__)
+    plt.xlabel(x_label)
     plt.ylabel(y_label)
     plt.title(title)
     plt.legend()
@@ -146,5 +171,9 @@ if __name__ == "__main__":
         altruist_longest_path,
         graph_stretching_longest_path,
         stretch_nodes_longest_path,
-        improved_altruist_longest_path
+        improved_altruist_longest_path,
+        using_both
         ]
+
+    plot_altering_edges(6, funcs_to_test, complete_accuracy)
+    #execute_all_benchmark_sets([funcs_to_test[1]], complete_accuracy)
