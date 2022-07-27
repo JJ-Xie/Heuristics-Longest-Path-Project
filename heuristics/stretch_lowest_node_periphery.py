@@ -24,7 +24,7 @@
 
 import copy
 import igraph as ig
-from implementing_dijkstras import dijkstras_tree
+from heuristics.dijkstras_longest_tree import dijkstras_tree
 
 
 #Checks if graphs if connected by finding the number of clusters

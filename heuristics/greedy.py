@@ -64,7 +64,7 @@ def best_next(graph, vertex, availability, potential):
 
 #Inputs a graph
 #Returns the longest path in the graph
-def altruist_longest_path(graph):
+def greedy_longest_path(graph):
     longest_path_track = []
     longest_path_length = 0
 

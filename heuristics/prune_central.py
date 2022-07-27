@@ -24,7 +24,7 @@
 
 import copy
 import igraph as ig
-from implementing_dijkstras import dijkstras_tree
+from heuristics.dijkstras_longest_tree import dijkstras_tree
 
 
 #Checks if graphs if connected by finding the number of clusters
@@ -162,7 +162,7 @@ def prune_graph(graph):
 
 
 #Runs Dijkstras tree algorithm on the pruned graph to find the longest path in the graph
-def prune_graph_longest_path(graph):
+def prune_central_longest_path(graph):
     prune_graph(graph)
     longest_path = dijkstras_tree(graph)
     return longest_path

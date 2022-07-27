@@ -7,16 +7,10 @@
 import igraph as ig
 import os
 import matplotlib.pyplot as plt
+import heuristics
 from graph_to_file import read
 from treestart_gen_random_graph import basetree_random_graph
 from find_longest_path import find_longest_path
-from implementing_heuristics import altruist_longest_path
-from graph_pruning_most_central import prune_graph_longest_path
-from stretch_total_graph import graph_stretching_longest_path
-from stretch_lowest_node import stretch_nodes_longest_path
-from dfs_greedy_heuristic import dfs_greedy_longest_path
-from old_greedy_dfs import old_greedy
-from greedy_antigreedy_heuristics import using_both
 
 
 def print_base_stats(heuristic, n, m, runs):
@@ -24,6 +18,19 @@ def print_base_stats(heuristic, n, m, runs):
     print(f"Nodes: {n}")
     print(f"Edges: {m}")
     print(f"Runs: {runs}")
+    
+
+def formatting(n, m):
+    if n < 10:
+        str_n = f'0{n}'
+    else:
+        str_n = str(n)
+    if m < 10:
+        str_m = f'0{m}'
+    else:
+        str_m = str(m)
+    
+    return str_n, str_m
 
 
 # Benchmarks how well a heuristic outputs 
@@ -35,7 +42,6 @@ def complete_accuracy(n, m, heuristic, location):
     os.chdir(location)
     runs = len(os.listdir())
     for file in sorted(os.listdir()):
-        print(f'Running: {file}')
         g = read(file)
         actual_lp = find_longest_path(g)
         heuristic_lp = heuristic(g)
@@ -69,15 +75,17 @@ def error_accuracy(n, m, heuristic, location):
     print(f"Average Error: {average_difference}")
     return average_difference
 
-
+# Benchmarks specific graph set on single heuristic
 def execute_specific_benchmark_set(n, m, heuristic, benchmark):
     directory = os.environ.get('PWD')
     bench_set = f'{directory}/benchmark_graph_sets/'
     os.chdir(bench_set)
-    location = f'{bench_set}{n}_{m}'
+    str_n, str_m = formatting(n, m)
+    location = f'{bench_set}{str_n}_{str_m}'
     benchmark(n, m, heuristic, location)
 
-# Benchmarks all graph sets on given heuristic
+
+# Benchmarks all graph sets on given heuristics
 def execute_all_benchmark_sets(heuristics, benchmark): 
     directory = os.environ.get('PWD')
     bench_set = f'{directory}/benchmark_graph_sets/'
@@ -177,12 +185,4 @@ def find_heuristic_fail(n, m, heuristic, runs):
 
 
 if __name__ == "__main__":
-    funcs_to_test = [
-        altruist_longest_path,
-        dfs_greedy_longest_path,
-        prune_graph_longest_path,
-        graph_stretching_longest_path,
-        stretch_nodes_longest_path
-        ]
-
-    execute_specific_benchmark_set(20, 35, using_both, complete_accuracy)
+    execute_specific_benchmark_set(7,9, heuristics.run_stretch_lowest_node,complete_accuracy)
