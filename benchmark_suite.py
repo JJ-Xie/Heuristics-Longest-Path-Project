@@ -13,6 +13,7 @@ from treestart_gen_random_graph import basetree_random_graph
 from find_longest_path import find_longest_path
 
 
+# Prints basic stats for each run
 def print_base_stats(heuristic, n, m, runs):
     print(f"Heuristic: {heuristic.__name__}")
     print(f"Nodes: {n}")
@@ -20,6 +21,7 @@ def print_base_stats(heuristic, n, m, runs):
     print(f"Runs: {runs}")
     
 
+# Alters n and m values for matching with file names
 def formatting(n, m):
     if n < 10:
         str_n = f'0{n}'
