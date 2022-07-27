@@ -185,4 +185,4 @@ def find_heuristic_fail(n, m, heuristic, runs):
 
 
 if __name__ == "__main__":
-    execute_specific_benchmark_set(7,9, heuristics.run_stretch_lowest_node,complete_accuracy)
+    execute_specific_benchmark_set(7,9, heuristics.run_dfs_greedy,complete_accuracy)

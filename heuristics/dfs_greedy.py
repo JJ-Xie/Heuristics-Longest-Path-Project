@@ -2,7 +2,7 @@
 #Justin Xie 2022
 
 import igraph as ig
-import dfs
+import heuristics.dfs
 
 #Returns a dictionary with keys representing the vertex and the label representing the number of connections it has (the score)
 def gen_potential(graph):
@@ -40,7 +40,7 @@ def tie_dfs(start_nodes, graph, availability):
         for i in range(len(graph.vs)):
             if i not in availability:
                 visited.add(i)
-        internal = dfs.execute_dfs(graph, start, visited, availability)
+        internal = heuristics.dfs.execute_dfs(graph, start, visited, availability)
         if internal > highest_internal:
             highe = internal
             best_node = start
