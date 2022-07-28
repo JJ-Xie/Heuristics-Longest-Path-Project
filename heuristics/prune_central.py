@@ -133,6 +133,7 @@ def prune(graph, originate_vertex_order, mapping):
     for origin_vertex in originate_vertex_order:
         vertex_prune = origin_vertex
         option_order = target_vertices_order(graph, mapping, vertex_prune)
+        #print(f'Target Order: {option_order}')
         cut = False
         
         #For each source vertex, the function loops through the sorted list of available target vertices
@@ -158,6 +159,8 @@ def prune_graph(graph):
     for cuts in range(graph.ecount() - (len(graph.vs) - 1)):
         p_mapping = total_periphery_mapping(graph)
         source_prune_order = possible_source_vertices(graph, p_mapping)
+        #print(f'Mapping: {p_mapping}')
+        #print(f'Source Order: {source_prune_order}')
         prune(graph, source_prune_order, p_mapping)
 
 
