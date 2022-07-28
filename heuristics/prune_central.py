@@ -158,8 +158,6 @@ def prune_graph(graph):
     for cuts in range(graph.ecount() - (len(graph.vs) - 1)):
         p_mapping = total_periphery_mapping(graph)
         source_prune_order = possible_source_vertices(graph, p_mapping)
-        print(f'Mapping: {p_mapping}')
-        print(f'Source Order: {source_prune_order}')
         prune(graph, source_prune_order, p_mapping)
 
 

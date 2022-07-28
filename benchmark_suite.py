@@ -194,4 +194,4 @@ def find_heuristic_fail(n, m, heuristic, runs):
 
 
 if __name__ == "__main__":
-    find_heuristic_fail(8,10,heuristics.run_dfs_greedy, 2000)
+    find_heuristic_fail(6,8,heuristics.run_stretch_total_graph, 2000)

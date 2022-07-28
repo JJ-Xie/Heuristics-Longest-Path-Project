@@ -24,7 +24,6 @@ def execute_dfs(graph, start, visited, available):
         after_dfs.vs[i]["id"]= i
         after_dfs.vs[i]["label"]= str(i)
     after_dfs = dfs(visited, graph, start, after_dfs)
-    #ig.plot(after_dfs)
    
     #Calcualtes internal path length after each DFS
     #Finds highest internal path
@@ -33,7 +32,5 @@ def execute_dfs(graph, start, visited, available):
         if i == start:
             continue
         elif i in available and len(after_dfs.neighbors(i)) > 0:
-            #print(f'Node: {i}, shortest path: {after_dfs.get_shortest_paths(i, start)[0]}')
-            #print(f'Node: {i}, distance: {len(after_dfs.get_shortest_paths(i, start)[0])}')
             internal_path += len(after_dfs.get_shortest_paths(i, start)[0]) - 1
     return internal_path

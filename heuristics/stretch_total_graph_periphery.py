@@ -64,20 +64,20 @@ def graph_stretching(graph):
         best_edge = ()
         highest_total_periphery = 0
 
-        print(f'Vertex Mapping: {total_periphery_mapping(graph)}')
-        print(f'Before Cut: {graph_total_periphery(graph)}')
+        #print(f'Vertex Mapping: {total_periphery_mapping(graph)}')
+        #print(f'Before Cut: {graph_total_periphery(graph)}')
 
         #A temporary copy is created to test and find which edge yields the best result
         for e in graph.es:
             temp_g = copy.deepcopy(graph)
             temp_g.delete_edges(e.tuple)
             current_total_periphery = graph_total_periphery(temp_g)
-            print(f'Cutting Edge: {e.tuple}, Total Periphery: {current_total_periphery}')
+            #print(f'Cutting Edge: {e.tuple}, Total Periphery: {current_total_periphery}')
             if current_total_periphery > highest_total_periphery and current_total_periphery != inf:
                 highest_total_periphery = current_total_periphery
                 best_edge = e.tuple
         graph.delete_edges(best_edge)
-        print(f'Best Choice: {best_edge}')
+        #print(f'Best Choice: {best_edge}')
     return graph
 
 
