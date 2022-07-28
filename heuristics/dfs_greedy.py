@@ -1,7 +1,6 @@
 #Heuristic for longest path problem based on the greedy heuristic
 #Justin Xie 2022
 
-import igraph as ig
 import heuristics.dfs
 
 #Returns a dictionary with keys representing the vertex and the label representing the number of connections it has (the score)
@@ -34,15 +33,18 @@ def subtract_potential(graph, current_vertex, potential):
 #Compares nodes based on the internal path length
 #Highest internal path length is the next vertex chose
 def tie_dfs(start_nodes, graph, availability):
-    highest_internal = 0
+    highest_internal = -1
+    best_node = None
     for start in start_nodes:
         visited = set()
         for i in range(len(graph.vs)):
             if i not in availability:
                 visited.add(i)
+        print(f'Visited: {visited}')
         internal = heuristics.dfs.execute_dfs(graph, start, visited, availability)
+        print(f'Node: {start}, IPL: {internal}')
         if internal > highest_internal:
-            highe = internal
+            highest_internal = internal
             best_node = start
     return best_node
 
@@ -77,6 +79,8 @@ def best_next(graph, vertex, availability, potential):
             if p in availability:
                 return p
     elif len(next_candidates) > 1:
+        print(f'Current: {vertex}, Entering tiebreaker')
+        print(f'Available: {availability}')
         next_candidate = tie_dfs(next_candidates, graph, availability)
         return next_candidate
     else:
@@ -91,6 +95,7 @@ def dfs_greedy_longest_path(graph):
 
     #Finds paths starting at the nodes with the least connections
     for i in range(len(graph.vs)):
+        print(f'NODE: {i}')
         path_tracker = []
         path_length = 0
         current = i
@@ -100,14 +105,15 @@ def dfs_greedy_longest_path(graph):
 
         #Loops until the path reaches a node with zero available next connections
         while to_continue:
+            available.remove(current)
             path_tracker.append(current)
             potential = subtract_potential(graph, current, potential)
             next = best_next(graph, current, available, potential)
+            print(f'Current: {current}, Next: {next}')
             if next == None:
                 to_continue = False
                 break
             else:
-                available.remove(current)
                 current = next
                 path_length += 1
         
@@ -117,4 +123,4 @@ def dfs_greedy_longest_path(graph):
             longest_path_track = [path_tracker]
         elif path_length == longest_path_length:
             longest_path_track.append(path_tracker)
-    return longest_path_length
+    return longest_path_length, longest_path_track

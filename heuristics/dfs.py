@@ -1,4 +1,5 @@
 import igraph as ig
+from matplotlib.style import available
 
 
 #Takes in a graph and applies a DFS from a given starting node to all other available vertices
@@ -23,6 +24,7 @@ def execute_dfs(graph, start, visited, available):
         after_dfs.vs[i]["id"]= i
         after_dfs.vs[i]["label"]= str(i)
     after_dfs = dfs(visited, graph, start, after_dfs)
+    #ig.plot(after_dfs)
    
     #Calcualtes internal path length after each DFS
     #Finds highest internal path
@@ -30,8 +32,8 @@ def execute_dfs(graph, start, visited, available):
     for i in range(len(after_dfs.vs)):
         if i == start:
             continue
-        elif i in available:
-            internal_path += len(graph.get_shortest_paths(i, start)[0]) - 1
+        elif i in available and len(after_dfs.neighbors(i)) > 0:
+            #print(f'Node: {i}, shortest path: {after_dfs.get_shortest_paths(i, start)[0]}')
+            #print(f'Node: {i}, distance: {len(after_dfs.get_shortest_paths(i, start)[0])}')
+            internal_path += len(after_dfs.get_shortest_paths(i, start)[0]) - 1
     return internal_path
-
-        

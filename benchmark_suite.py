@@ -7,6 +7,7 @@
 import igraph as ig
 import os
 import matplotlib.pyplot as plt
+import copy
 import heuristics
 from graph_to_file import read
 from treestart_gen_random_graph import basetree_random_graph
@@ -78,13 +79,14 @@ def error_accuracy(n, m, heuristic, location):
     return average_difference
 
 # Benchmarks specific graph set on single heuristic
-def execute_specific_benchmark_set(n, m, heuristic, benchmark):
-    directory = os.environ.get('PWD')
-    bench_set = f'{directory}/benchmark_graph_sets/'
-    os.chdir(bench_set)
-    str_n, str_m = formatting(n, m)
-    location = f'{bench_set}{str_n}_{str_m}'
-    benchmark(n, m, heuristic, location)
+def execute_specific_benchmark_set(n, m, heuristics, benchmark):
+    for heuristic in heuristics:
+        directory = os.environ.get('PWD')
+        bench_set = f'{directory}/benchmark_graph_sets/'
+        os.chdir(bench_set)
+        str_n, str_m = formatting(n, m)
+        location = f'{bench_set}{str_n}_{str_m}'
+        benchmark(n, m, heuristic, location)
 
 
 # Benchmarks all graph sets on given heuristics
@@ -172,10 +174,11 @@ def find_heuristic_fail(n, m, heuristic, runs):
     failed_graphs = []
     for run in range(runs):
         g = basetree_random_graph(n, m)
+        original_g = copy.deepcopy(g)
         actual_lp = find_longest_path(g)
         heuristic_lp = heuristic(g)
         if actual_lp != heuristic_lp:
-            failed_graphs.append(g)
+            failed_graphs.append(original_g)
     print("---- Finding Heuristic Fail Benchmark ----")
     print_base_stats(heuristic, n, m, runs)
     print(f"Result: {len(failed_graphs)} graphs with wrong longest path")
@@ -183,8 +186,12 @@ def find_heuristic_fail(n, m, heuristic, runs):
         return None
     for graph in failed_graphs:
         ig.plot(graph)
-    return failed_graphs
+        print(find_longest_path(graph))
+        print(heuristic(graph))
+        to_continue = input('Continue Showing Graphs? ')
+        if to_continue != 'y':
+            break
 
 
 if __name__ == "__main__":
-    execute_specific_benchmark_set(7,9, heuristics.run_dfs_greedy,complete_accuracy)
+    find_heuristic_fail(8,10,heuristics.run_dfs_greedy, 2000)

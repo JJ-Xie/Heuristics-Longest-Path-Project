@@ -131,3 +131,27 @@ Tomorrow, I need to finish rounding out the benchmark suite with files and comma
 I also need to update to README to be more detailed.
 If I have time, I will try to figure out why my heuristic did not improve after I added DFS.
 I also need to continue my report/paper.
+
+
+7/26 Update:
+Today I worked on:
+
+    1. Finished benchmarks suite (mostly)
+    2. Writing the abstract and introduction to my paper
+
+Today I finished most of the benchmark suite that allows me to take in files. It took some time to figure out the os and directory packages for Python.
+However, once I got that finished, I realized that I would have to add extra functions for more testing capability. 
+I added a function that executes all graph sets over a group of heuristics. I also added a function that executes a single graph set any number of heuristics.
+I also discovered that the function that plots accuracy as a function of edges won't work very well with static graph sets that have been created already.
+I did not modify that function as a result.
+
+I also started on writing more of my paper. I was able to write an abstract and expand that out to an introduction, modeling some published papers on arxiv.
+The introduction may still be a bit short. I can add some more detailed discoveries once I use my benchmark functions.
+
+
+7/27 Update:
+Today I worked on:
+
+    1. Organizing the git repo
+    2. Running the graph-fail benchmark on all heuristics
+    3. Writing the background for the longest path section of my paper
