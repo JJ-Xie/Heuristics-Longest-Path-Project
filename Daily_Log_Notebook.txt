@@ -154,5 +154,10 @@ Today I worked on:
 
     1. Organizing the git repo
     2. Running the graph-fail benchmark on all heuristics
-    3. Writing the background for the longest path section of my paper
 
+Today I was able to modulate and organize my git repo by placing a few of the files that I haven't been using into the misc. directory. 
+I also placed all 5 of my heuristics into a heuristics file and created a module with it. It was new, but I picked it up fairly quicly.
+I kept the more general files out of directories. The benchmark suite, brute-force longest path solution, and random graph generator were all kept out.
+
+I then was able to run the graph-fail benchmark to find examples of what graphs were failure points for my heuristics.
+I gathered some graphs for each heuristic into a temporary document for later use.
