@@ -5,7 +5,15 @@ Justin Xie 2022
 This project aims to use heuristics in the longest simple path problem. This repository contains the heuristics, graphs, and benchmarking suite for executing the heuristics.
 
 ## About the Repository
-Ths repository contains the heuristics, random graph generators, graphs sets, and benchmark suite used during research into the longest path problem. The heuristics directory contains all 6 heuristics explored and an init file that modulates the heuristics for organization and benchmark purposes. The random graph generator in the file treestart_gen_random_graph.py generated the graph sets in the directory benchmark_graph_sets
+Ths repository contains the heuristics, random graph generators, graphs sets, and benchmark suite used during research into the longest path problem. The heuristics directory contains all heuristics explored and an init file that modulates the heuristics for organization and benchmark purposes. The random graph generator in the file treestart_gen_random_graph.py generated the graph sets in the directory benchmark_graph_sets for use in the benchmark suite.
+
+- **benchmark_graph_sets:** An array of random graph sets generated for consistent benchmarking results among heuristics.
+- **heuristics:** Collection of heuristics explored in this project.
+- **benchmark_suite.py:** Contains benchmark functions for accuracy, error, and runtime that can be run as functions of the number of vertices or edges.
+- **find_longest_path.py:** Finds longes path through brute-force method of finding all simple paths.
+- **graph_to_file.py:** Converts Python-igraph graphs into lgl files for storage and from lgl files back to igraph graphs.
+- **treestart_gen_random_graph.py:** Generates random graph by starting with a random, connected tree and adding random edges.
+- **visualizing_graph_periphery.py:** Colors a random graph's vertices in a gradient based on the total vertex periphery.
 
 ## Prerequisites for Execution
 1. The code in the repository was created using Python 3.10.4. Installation can be done through the command line:
