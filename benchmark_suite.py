@@ -108,20 +108,6 @@ def execute_specific_benchmark_set(n, m, heuristics, benchmark):
         benchmark(n, m, heuristic, location)
 
 
-# Benchmarks all graph sets on given heuristics
-def execute_all_benchmark_sets(heuristics, benchmark): 
-    directory = os.environ.get('PWD')
-    bench_set = f'{directory}/benchmark_graph_sets/'
-    os.chdir(bench_set)
-    for heuristic in heuristics:
-        dir_list = sorted(os.listdir())
-        print(dir_list)
-        for dir in dir_list:
-            dir_name_split = dir.split('_')
-            location = f'{bench_set}/{dir}'
-            benchmark(dir_name_split[0], dir_name_split[1], heuristic, location)
-
-
 # Plots the results of a benchmark when altering
 # the number of edges and keeping the vertices the same
 # Runs all graph sets with the same given vertex count 
