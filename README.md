@@ -36,11 +36,11 @@ All testing of the heuristics can be done through the benchmark suite file. It c
 #### Benchmark Functions:
 Each function is given a specific vertex (n) and edge count (m), a heuristic, and a location and a location to the save graph files.
 
-1. **accuracy:** Returns the percentage of graphs where the given heuristic returned the correct answer. 
+1. **Accuracy:** Returns the percentage of graphs where the given heuristic returned the correct answer. 
 
-2. **error:** Returns the average difference between the the longest path returned by the heuristic and the correct longest path over all inputted graphs.
+2. **Error:** Returns the average difference between the the longest path returned by the heuristic and the correct longest path over all inputted graphs.
 
-3. **Runtime** Returns the average runtime of the given heuristic over all inputted graphs.
+3. **Runtime:** Returns the average runtime of the given heuristic over all inputted graphs.
 
 #### Benchmark Execution Functions:
 1. **execute_specific_benchmark_set:** Given a specific vertex (n) and edge (m) count, heuristic, and benchmark function. This execution function will run the benchmark on the heuristic on graph sets with n vertices and m edges.
