@@ -1,7 +1,7 @@
-#Cuts a graph into a tree
-#Justin Xie 2022
+# Cuts a graph into a tree by pruning the most central edges
+# Justin Xie 2022
 
-#Below is the PseudoCode for this heuristic:
+# Below is the PseudoCode for this heuristic:
 
 # To prune the "shortcuts" from a graph and turn it into a tree
 
@@ -27,7 +27,7 @@ import igraph as ig
 from heuristics.dijkstras_longest_tree import dijkstras_tree
 
 
-#Checks if graphs if connected by finding the number of clusters
+# Checks if graphs if connected by finding the number of clusters
 def check_connection(graph):
     components = graph.clusters(mode='weak')
     if len(components) == 1:
@@ -35,8 +35,8 @@ def check_connection(graph):
     else:
         return False
 
-#Finds the total periphery of a vertex by adding the shortest paths to all other nodes together
-def total_point_periphery(graph, vertex):
+# Finds the total periphery of a vertex by adding the shortest paths to all other nodes together
+def total_vertex_periphery(graph, vertex):
     total_periphery = 0
 
     #Loops through all neighbor vertices to find total of shortest paths to those vertices
@@ -49,33 +49,26 @@ def total_point_periphery(graph, vertex):
     return total_periphery
 
 
-#Creates a dictionary mapping the vertices to their total periphery values
-def total_periphery_mapping(graph):
+# Creates a dictionary mapping the vertices to their total periphery values
+def total_vertex_periphery_mapping(graph):
     mapping = {}
     for i in range(len(graph.vs)):
-        p = total_point_periphery(graph, i)
+        p = total_vertex_periphery(graph, i)
         mapping[i] = p
     
     return mapping
 
 
-def graph_total_periphery(mapping):
-    total = 0
-    for key in mapping.keys():
-        total += mapping[key]
-    return total
-
-
-#Sorts the of a graph from lowest to highest periphery
+# Sorts the of a graph from lowest to highest periphery
 def possible_source_vertices(graph, mapping):
     unsorted_possible = []
     for i in range(len(graph.vs)):
         unsorted_possible.append(i)
     sorted_possible = []
 
-    #Compares each vertex to the previously sorted list
-    #If a vertex has a lower periphery than sorted_possible[j], it is inserted in front
-    #If two vertices have the same periphery, the one with more neighbors is place in front
+    # Compares each vertex to the previously sorted list
+    # If a vertex has a lower periphery than sorted_possible[j], it is inserted in front
+    # If two vertices have the same periphery, the one with more neighbors is place in front
     for vertex in unsorted_possible:
         if not sorted_possible:
             sorted_possible.append(vertex)
@@ -97,14 +90,14 @@ def possible_source_vertices(graph, mapping):
     return sorted_possible
 
 
-#Sorts the list of neighbors connected to the source vertex
+# Sorts the list of neighbors connected to the source vertex
 def target_vertices_order(graph, mapping, source_vertex):
     unsorted_possible = graph.neighbors(source_vertex)
     sorted_possible = []
 
-    #Compares each vertex to the previously sorted list
-    #If a vertex has a lower periphery than sorted_possible[j], it is inserted in front
-    #If two vertices have the same periphery, the one with more neighbors is place in front
+    # Compares each vertex to the previously sorted list
+    # If a vertex has a lower periphery than sorted_possible[j], it is inserted in front
+    # If two vertices have the same periphery, the one with more neighbors is place in front
     for vertex in unsorted_possible:
         if not sorted_possible:
             sorted_possible.append(vertex)
@@ -126,25 +119,24 @@ def target_vertices_order(graph, mapping, source_vertex):
     return sorted_possible
 
 
-#Cuts one edge from the inputted graph based on provided source and target vertices
+# Cuts one edge from the inputted graph based on provided source and target vertices
 def prune(graph, originate_vertex_order, mapping):
 
-    #Loops through the sorted list of source vertices
+    # Loops through the sorted list of source vertices
     for origin_vertex in originate_vertex_order:
         vertex_prune = origin_vertex
         option_order = target_vertices_order(graph, mapping, vertex_prune)
-        #print(f'Target Order: {option_order}')
         cut = False
         
-        #For each source vertex, the function loops through the sorted list of available target vertices
+        # For each source vertex, the function loops through the sorted list of available target vertices
         for option in option_order:
             test_graph = copy.deepcopy(graph)
             edge_to_remove = (vertex_prune, option)
             test_graph.delete_edges([edge_to_remove])
             connected = check_connection(test_graph)
 
-            #If the graph is connected when cut, both loops are broken as the function has successfully removed an edge
-            #Ensures the graph is still connected
+            # If the graph is connected when cut, both loops are broken as the function has successfully removed an edge
+            # Ensures the graph is still connected
             if connected:
                 graph.delete_edges([edge_to_remove])
                 cut = True
@@ -153,18 +145,16 @@ def prune(graph, originate_vertex_order, mapping):
             break
 
 
-#Executes the number of pruning steps needed to convert the graph into a tree
-#Prunes so the Dijkstra longest path in a tree algorithm can work
+# Executes the number of pruning steps needed to convert the graph into a tree
+# Prunes so the Dijkstra longest path in a tree algorithm can work
 def prune_graph(graph):
     for cuts in range(graph.ecount() - (len(graph.vs) - 1)):
-        p_mapping = total_periphery_mapping(graph)
+        p_mapping = total_vertex_periphery_mapping(graph)
         source_prune_order = possible_source_vertices(graph, p_mapping)
-        #print(f'Mapping: {p_mapping}')
-        #print(f'Source Order: {source_prune_order}')
         prune(graph, source_prune_order, p_mapping)
 
 
-#Runs Dijkstras tree algorithm on the pruned graph to find the longest path in the graph
+# Runs Dijkstras tree algorithm on the pruned graph to find the longest path in the graph
 def prune_central_longest_path(graph):
     prune_graph(graph)
     longest_path = dijkstras_tree(graph)

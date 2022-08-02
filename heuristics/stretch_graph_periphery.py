@@ -1,7 +1,7 @@
-#Turning a graph into a tree by cutting to maximize periphery
-#Justin Xie 2022
+# Turns a graph into a tree by cutting edges to maximize graph periphery
+# Justin Xie 2022
 
-#Below is the Pseudocode for this heuristic
+# Below is the Pseudocode for this heuristic
 
 # To stretch the graph into a tree
 
@@ -22,8 +22,8 @@ from cmath import inf
 from heuristics.dijkstras_longest_tree import dijkstras_tree
 
 
-#Finds the total periphery of a vertex by adding the shortest paths to all other nodes together
-def total_point_periphery(graph, vertex):
+# Finds the total periphery of a vertex by adding the shortest paths to all other nodes together
+def total_vertex_periphery(graph, vertex):
     total_periphery = 0
 
     #Loops through all neighbor vertices to find total of shortest paths to those vertices
@@ -36,27 +36,27 @@ def total_point_periphery(graph, vertex):
     return total_periphery
 
 
-#Creates a dictionary mapping the vertices to their total periphery values
-def total_periphery_mapping(graph):
+# Creates a dictionary mapping the vertices to their total periphery values
+def total_vertex_periphery_mapping(graph):
     mapping = {}
     for i in range(len(graph.vs)):
-        p = total_point_periphery(graph, i)
+        p = total_vertex_periphery(graph, i)
         mapping[i] = p
     
     return mapping
 
 
-#Finds total periphery of a graph
-def graph_total_periphery(graph):
-    mapping = total_periphery_mapping(graph)
+# Finds total periphery of a graph
+def graph_periphery(graph):
+    mapping = total_vertex_periphery_mapping(graph)
     total = 0
     for key in mapping.keys():
         total += mapping[key]
     return total
 
 
-#Cuts a graph into a tree by cutting the edges that maximize the total periphery of the graph
-def graph_stretching(graph):
+# Cuts a graph into a tree by cutting the edges that maximize the total periphery of the graph
+def total_graph_stretching(graph):
     n = len(graph.vs)
     m = len(graph.es)
 
@@ -64,25 +64,20 @@ def graph_stretching(graph):
         best_edge = ()
         highest_total_periphery = 0
 
-        print(f'Vertex Mapping: {total_periphery_mapping(graph)}')
-        print(f'Before Cut: {graph_total_periphery(graph)}')
-
-        #A temporary copy is created to test and find which edge yields the best result
+        # A temporary copy is created to test and find which edge yields the best result
         for e in graph.es:
             temp_g = copy.deepcopy(graph)
             temp_g.delete_edges(e.tuple)
-            current_total_periphery = graph_total_periphery(temp_g)
-            print(f'Cutting Edge: {e.tuple}, Total Periphery: {current_total_periphery}')
+            current_total_periphery = graph_periphery(temp_g)
             if current_total_periphery > highest_total_periphery and current_total_periphery != inf:
                 highest_total_periphery = current_total_periphery
                 best_edge = e.tuple
         graph.delete_edges(best_edge)
-        print(f'Best Choice: {best_edge}')
     return graph
 
 
-#Runs Dijkstras tree algorithm on the total stretch graph to find the longest path in the graph
+# Runs Dijkstras tree algorithm on the total stretch graph to find the longest path in the graph
 def stretch_total_longest_path(graph):
-    tree = graph_stretching(graph)
+    tree = total_graph_stretching(graph)
     longest_path = dijkstras_tree(tree)
     return longest_path

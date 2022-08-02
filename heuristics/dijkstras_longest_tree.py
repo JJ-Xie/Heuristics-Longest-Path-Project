@@ -1,9 +1,9 @@
-#Utilizes Dijkstra's Algorithm to find longest path in a tree with n nodes
-#Justin Xie 
+# Utilizes Dijkstra's Dangle Algorithm to find longest path in a tree with n nodes
+# Justin Xie 2022
 
 import igraph as ig
 
-#A breadth first search algorithm to find one of the furthest nodes from a given nodes
+# A breadth first search algorithm to find one of the furthest nodes from a given nodes
 def bfs(graph, start_node):
     output = []
     q = [start_node]
@@ -12,9 +12,9 @@ def bfs(graph, start_node):
         available.add(i)
     available.remove(start_node)
 
-    #Loops until queue is empty
-    #For each item in the queue, the adjacent neighbors that have yet to be added are appended to the back of the queue
-    #Each item is popped into the output list that represents the order the nodes were visited
+    # Loops until queue is empty
+    # For each item in the queue, the adjacent neighbors that have yet to be added are appended to the back of the queue
+    # Each item is popped into the output list that represents the order the nodes were visited
     while q:
         current_node = q[0]
         adjacent = graph.neighbors(current_node)
@@ -27,10 +27,10 @@ def bfs(graph, start_node):
     return output[-1]
 
 
-#Utilizing the breadth first search algorithm twice to find to extremes of the graph to find the longest path
+# Utilizing the breadth first search algorithm twice to find to extremes of the graph to find the longest path
 def dijkstras_tree(graph):
         first = bfs(graph, 0)
         second = bfs(graph, first)
         longest_path = graph.shortest_paths(first, second)
-        longest_path = longest_path[0][0] #Note: There is a double index as the shortest_paths function outputs a list inside of a list
+        longest_path = longest_path[0][0] # Note: There is a double index as the shortest_paths function outputs a list inside of a list
         return longest_path

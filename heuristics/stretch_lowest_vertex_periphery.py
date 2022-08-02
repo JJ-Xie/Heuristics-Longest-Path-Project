@@ -1,7 +1,7 @@
-#Stretches a graph into a tree by maximizing the increase of the periphery at the point with the lowest periphery
-#Justin Xie
+# Stretches a graph into a tree by maximizing the increase of the periphery at the point with the lowest periphery
+# Justin Xie
 
-#Below is the Pseudocode for this heuristic
+# Below is the Pseudocode for this heuristic
 
 # To stretch the graph into a tree
 
@@ -27,7 +27,7 @@ import igraph as ig
 from heuristics.dijkstras_longest_tree import dijkstras_tree
 
 
-#Checks if graphs if connected by finding the number of clusters
+# Checks if graphs if connected by finding the number of clusters
 def check_connection(graph):
     components = graph.clusters(mode='weak')
     if len(components) == 1:
@@ -36,10 +36,10 @@ def check_connection(graph):
         return False
 
 
-def total_point_periphery(graph, vertex):
+def total_vertex_point_periphery(graph, vertex):
     total_periphery = 0
 
-    #Loops through all neighbor vertices to find total of shortest paths to those vertices
+    # Loops through all neighbor vertices to find total of shortest paths to those vertices
     for other_vertex in graph.vs:
         if other_vertex == vertex:
             continue
@@ -49,35 +49,26 @@ def total_point_periphery(graph, vertex):
     return total_periphery
 
 
-#Creates a dictionary mapping the vertices to their total periphery values
-def total_periphery_mapping(graph):
+# Creates a dictionary mapping the vertices to their total periphery values
+def total_vertex_periphery_mapping(graph):
     mapping = {}
     for i in range(len(graph.vs)):
-        p = total_point_periphery(graph, i)
+        p = total_vertex_point_periphery(graph, i)
         mapping[i] = p
     
     return mapping
 
 
-#Finds total periphery of a graph
-def graph_total_periphery(graph):
-    mapping = total_periphery_mapping(graph)
-    total = 0
-    for key in mapping.keys():
-        total += mapping[key]
-    return total
-
-
-#Sorts all vertices based on their total periphery
+# Sorts all vertices based on their total periphery
 def possible_source_vertices(graph, mapping):
     unsorted_possible = []
     for i in range(len(graph.vs)):
         unsorted_possible.append(i)
     sorted_possible = []
 
-    #Compares each vertex to the previously sorted list
-    #If a vertex has a lower periphery than sorted_possible[j], it is inserted in front
-    #If two vertices have the same periphery, the one with more neighbors is place in front
+    # Compares each vertex to the previously sorted list
+    # If a vertex has a lower periphery than sorted_possible[j], it is inserted in front
+    # If two vertices have the same periphery, the one with more neighbors is place in front
     for vertex in unsorted_possible:
         if not sorted_possible:
             sorted_possible.append(vertex)
@@ -98,27 +89,27 @@ def possible_source_vertices(graph, mapping):
 
     return sorted_possible
 
-#Finds the edge that maximizes the source vertex's total periphery
+# Finds the edge that maximizes the source vertex's total periphery
 def find_best_edge(graph, source_vertices):
 
-    #Loops through the source vertices until an edge can be removed without breaking connectivity
+    # Loops through the source vertices until an edge can be removed without breaking connectivity
     for source in source_vertices:
         targets = graph.neighbors(source)
         best_target = None
         best_source_periphery = 0
 
-        #Loops through the neighbors of the source vertex to find the one that maximizes the source vertex's total periphery
-        #Ensures connectivity
+        # Loops through the neighbors of the source vertex to find the one that maximizes the source vertex's total periphery
+        # Ensures connectivity
         for target in targets:
             temp_g = copy.deepcopy(graph)
             temp_g.delete_edges([(source, target)])
             if check_connection(temp_g):
-                p_periphery = total_point_periphery(temp_g, source)
+                p_periphery = total_vertex_point_periphery(temp_g, source)
                 if p_periphery > best_source_periphery:
                     best_source_periphery = p_periphery
                     best_target = target
 
-        #Finding a sufficient edge breaks the loop
+        # Finding a sufficient edge breaks the loop
         if best_target != None:
             the_source = source
             break
@@ -127,20 +118,21 @@ def find_best_edge(graph, source_vertices):
     return edge
 
 
-#Cuts the graph into a tree by cutting the edge that maximizes the total periphery of the vertex with the lowest periphery
+# Cuts the graph into a tree by cutting the edge that maximizes the total periphery of the vertex with the lowest periphery
 def stretch_node(graph):
     n = len(graph.vs)
     m = len(graph.es)
 
-    #Cuts all excess edges not needed to form a tree
+    # Cuts all excess edges not needed to form a tree
     for cut in range(m - (n-1)):
-        mapping = total_periphery_mapping(graph)
+        mapping = total_vertex_periphery_mapping(graph)
         sources = possible_source_vertices(graph, mapping)
         edge = find_best_edge(graph, sources)
         graph.delete_edges([edge])
 
     return graph
 
+# Runs Dijkstras tree algorithm on the graph with stretched vertices to find the longest path in the graph
 def stretch_nodes_longest_path(graph):
     tree = stretch_node(graph)
     longest_path = dijkstras_tree(tree)
