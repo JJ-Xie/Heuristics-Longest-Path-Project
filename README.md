@@ -2,9 +2,15 @@
 Justin Xie, Bart Massey, Cassaundra Smith 2022
 
 ## About the Project
-This project aims to use heuristics in the longest simple path problem
+This project aims to use heuristics in the longest simple path problem. This repository contains the heuristics, graphs, and benchmarking suite for executing the heuristics.
 
-## In this Repository
-Currently, in this repository, there are algorithms for generating random, unweighted graph (connected and unconnected). There are also runtime benchmarking programs for these algorithms.
+## Prerequisites
+Markup : 1. The heuristics, graphs, and benchmarking suite were created using Python 3.10.4. 
 
-There is also a brute-force algorithm and two heuristics for tackling the longest path problem. one heuristic uses the greedy principle and the other prunes a graph into a tree before applying Dijkstra's algorithm. The repository also contains benchmarking data for the longest path algorithm and heuristics
+
+
+the [Python-igraph](https://igraph.org/python/) package to run. Use the package manager [pip3](https://pip.pypa.io/en/stable/) to install igraph.
+
+```bash
+pip3 install 
+```
