@@ -1,10 +1,13 @@
 # Heuristics-Longest-Path-Project
-Justin Xie, Bart Massey, Cassaundra Smith 2022
+Justin Xie 2022
 
 ## About the Project
 This project aims to use heuristics in the longest simple path problem. This repository contains the heuristics, graphs, and benchmarking suite for executing the heuristics.
 
-## Prerequisites
+## About the Repository
+Ths repository contains the heuristics, random graph generators, graphs sets, and benchmark suite used during research into the longest path problem. The heuristics directory contains all 6 heuristics explored and an init file that modulates the heuristics for organization and benchmark purposes. The random graph generator in the file treestart_gen_random_graph.py generated the graph sets in the directory benchmark_graph_sets
+
+## Prerequisites for Execution
 1. The code in the repository was created using Python 3.10.4. Installation can be done through the command line:
 
 ```bash
@@ -19,3 +22,10 @@ pip3 install igraph
 pip3 install matplotlib
 ```
 
+## Usage
+
+
+## License
+This work is made available under the "GNU General Public License v3.0". Please see the file LICENSE in this distribution for license terms.
+
+## Acknowledgements

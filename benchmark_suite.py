@@ -8,6 +8,7 @@ import igraph as ig
 import os
 import matplotlib.pyplot as plt
 import copy
+import time
 import heuristics
 from graph_to_file import read
 from treestart_gen_random_graph import basetree_random_graph
@@ -58,10 +59,9 @@ def accuracy(n, m, heuristic, location):
     return accuracy_rate
 
 
-# Benchmarks how far off a function is from the actual
-# longest path.
-# Given a certain number of vertices, 
-# edges, and where the benchmark graph set is located
+# Benchmarks how far off a function is from the actual longest path.
+# Given a certain number of vertices, edges
+# and where the benchmark graph set is located
 def error(n, m, heuristic, location):
     total_difference = 0
     os.chdir(location)
@@ -77,6 +77,25 @@ def error(n, m, heuristic, location):
     print_base_stats(heuristic, n, m, runs)
     print(f"Average Error: {average_difference}")
     return average_difference
+
+
+# Benchmarks runtime of heuristics
+def runtime(n, m, heuristic, location):
+    total_runtime = 0
+    os.chdir(location)
+    runs = len(os.listdir())
+    for file in sorted(os.listdir()):
+        g = read(file)
+        start_time = time.time()
+        heuristic(g)
+        runtime = time.time() - start_time
+        total_runtime += runtime
+    average_runtime = total_runtime / runs
+    print("---- Runtime Benchmark ----")
+    print_base_stats(heuristic, n, m, runs)
+    print(f'Average Runtime: {average_runtime}')
+    return average_runtime
+
 
 # Benchmarks specific graph set on single heuristic
 def execute_specific_benchmark_set(n, m, heuristics, benchmark):
@@ -194,4 +213,4 @@ def find_heuristic_fail(n, m, heuristic, runs):
 
 
 if __name__ == "__main__":
-    plot_altering_edges(8, heuristics.all, accuracy)
+    plot_altering_edges(10, heuristics.all, runtime)
