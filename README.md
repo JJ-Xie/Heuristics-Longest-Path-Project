@@ -31,9 +31,12 @@ pip3 install matplotlib
 ```
 
 ## Usage
+All testing of the heuristics can be done through the benchmark suite file. It contains 3 benchmark functions, 3 benchmark execution functions, and function to find graphs that cause heuristics to return incorrect answers.
 
+Benchmark Functions:
 
 ## License
 This work is made available under the "GNU General Public License v3.0". Please see the file LICENSE in this distribution for license terms.
 
 ## Acknowledgements
+Thank you to Bart Massey and Cassaundra Smith for helping me in this exploration of the Heuristics in the Longest Simple Path Problem.
