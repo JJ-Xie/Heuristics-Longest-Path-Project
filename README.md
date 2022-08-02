@@ -12,8 +12,10 @@ sudo apt-get update
 sudo apt-get install python3.10
 ```
 
-2. The heuristics, graphs, and benchmark suite require the [Python-igraph](https://igraph.org/python/) package to run. Use the package manager [pip3](https://pip.pypa.io/en/stable/) to install igraph.
+2. The heuristics, graphs, and benchmark suite require the [Python-igraph](https://igraph.org/python/) and the [Matplotlib](https://matplotlib.org/) packages to run. Use the package manager [pip](https://pip.pypa.io/en/stable/) to install igraph and Matplotlib. Use pip3 for Python3.
 
 ```bash
-pip3 install 
+pip3 install igraph
+pip3 install matplotlib
 ```
+
