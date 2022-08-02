@@ -58,6 +58,8 @@ if __name__ == "__main__":
     plot_altering_edges(8, heuristics.all, accuracy)
 ```
 
+Disclaimer: If the number of vertices and edges inputted are too large, the benchmarking functions may not work or could crash due to the exponential properties of the find_longest_path function that checks answers.
+
 ## License
 This work is made available under the "GNU General Public License v3.0". Please see the file LICENSE in this distribution for license terms.
 
