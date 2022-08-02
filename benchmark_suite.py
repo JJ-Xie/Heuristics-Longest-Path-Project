@@ -40,7 +40,7 @@ def formatting(n, m):
 # the exact longest path.
 # Given a certain number of vertices, 
 # edges, and where the benchmark graph set is located
-def complete_accuracy(n, m, heuristic, location):
+def accuracy(n, m, heuristic, location):
     accurate = 0
     os.chdir(location)
     runs = len(os.listdir())
@@ -62,7 +62,7 @@ def complete_accuracy(n, m, heuristic, location):
 # longest path.
 # Given a certain number of vertices, 
 # edges, and where the benchmark graph set is located
-def error_accuracy(n, m, heuristic, location):
+def error(n, m, heuristic, location):
     total_difference = 0
     os.chdir(location)
     runs = len(os.listdir())
@@ -194,4 +194,4 @@ def find_heuristic_fail(n, m, heuristic, runs):
 
 
 if __name__ == "__main__":
-    plot_altering_edges(7, heuristics.all, complete_accuracy)
+    plot_altering_edges(8, heuristics.all, accuracy)

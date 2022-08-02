@@ -30,7 +30,6 @@ def increase_diameter(graph):
     for cut in range(m - (n-1)):
         best_edge = ()
         highest_diameter = 0
-
         # Loops through all edges and finds the one that increases
         # the diameter of the graph the most
         for e in graph.es:
