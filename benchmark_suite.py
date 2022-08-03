@@ -6,6 +6,7 @@
 
 import igraph as ig
 import os
+import sys
 import matplotlib.pyplot as plt
 import copy
 import time
@@ -112,9 +113,9 @@ def execute_specific_benchmark_set(n, m, heuristics, benchmark):
 # the number of edges and keeping the vertices the same
 # Runs all graph sets with the same given vertex count 
 def plot_altering_edges(vertices, heuristics, benchmark):
-    x_label = input('x-axis label: ')
-    y_label = input('y-axis label: ')
-    title = input('Graph Title: ')
+    x_label = 'Number of Vertices'
+    y_label = benchmark.__name__
+    title = f'Heuristics {y_label} on {vertices}-Graph'
     all_y = []
     last_x = []
     for i in range(len(heuristics)):
@@ -199,4 +200,4 @@ def find_heuristic_fail(n, m, heuristic, runs):
 
 
 if __name__ == "__main__":
-    plot_altering_edges(8, heuristics.all, accuracy)
+    plot_altering_edges(7, heuristics.all, accuracy)

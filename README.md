@@ -36,7 +36,7 @@ python3 -m pip install -r requirements.txt
 ## Usage
 All testing of the heuristics can be done through the benchmark suite file. It contains several benchmark functions, several benchmark execution functions, and a function to find graphs that cause heuristics to return incorrect answers.
 
-The current benchmark suite is set to run and plot the accuracy benchmarks of graphs with 8 vertices. 
+The current benchmark suite is set to run and plot the accuracy benchmarks of graphs with 7 vertices. 
 
 **To run the current benchmark suite:**
 ```bash
@@ -67,11 +67,11 @@ Given a vertex and edge count, a heuristic, and a number of runs to loop through
 
 #### Using the Benchmark Execution Functions
 
-In the main function of the benchmark suite, you can call any of the benchmark execution functions. For example, to plot the accuracy of all heuristics on graphs with 8 vertices and a changing number of edges, you could call this function in the main function:
+In the main function of the benchmark suite, you can call any of the benchmark execution functions. For example, to plot the accuracy of all heuristics on graphs with 7 vertices and a changing number of edges, you could call this function in the main function:
 
 ```python
 if __name__ == "__main__":
-    plot_altering_edges(8, heuristics.all, accuracy)
+    plot_altering_edges(7, heuristics.all, accuracy)
 ```
 
 Disclaimer: If the number of vertices and edges inputted are too large, the benchmarking functions may not work or could crash due to the exponential properties of the find_longest_path function that checks answers.
