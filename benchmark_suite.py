@@ -115,7 +115,7 @@ def execute_specific_benchmark_set(n, m, heuristics, benchmark):
 def plot_altering_edges(vertices, heuristics, benchmark):
     x_label = 'Number of Vertices'
     y_label = benchmark.__name__
-    title = f'Heuristics {y_label} on {vertices}-Graph'
+    title = f'Heuristics {y_label} on {vertices}-Vertex Graph'
     all_y = []
     last_x = []
     for i in range(len(heuristics)):
@@ -200,4 +200,4 @@ def find_heuristic_fail(n, m, heuristic, runs):
 
 
 if __name__ == "__main__":
-    plot_altering_edges(7, heuristics.all, accuracy)
+    plot_altering_edges(8, heuristics.all, accuracy)
