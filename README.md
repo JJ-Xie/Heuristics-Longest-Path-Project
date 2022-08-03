@@ -34,8 +34,9 @@ python3 -m pip install -r requirements.txt
 ```
 
 ## Usage
-
 All testing of the heuristics can be done through the benchmark suite file. It contains several benchmark functions, several benchmark execution functions, and a function to find graphs that cause heuristics to return incorrect answers.
+
+The current benchmark suite is set to run and plot the accuracy benchmarks of graphs with 8 vertices. 
 
 ### Benchmark Functions:
 
