@@ -5,6 +5,32 @@ Justin Xie 2022
 
 This project aims to use heuristics in the longest simple path problem. This repository contains the heuristics, graphs, and benchmarking suite for executing the heuristics.
 
+## Basic Usage
+
+#### Prerequisites for Execution
+
+1. You will need to install [Python](https://www.python.org/) 3.10 on your machine.
+
+2. The heuristics, graphs, and benchmark suite require the [Python-igraph](https://igraph.org/python/) and the [Matplotlib](https://matplotlib.org/) packages to run.
+
+```bash
+python3 -m pip install -r requirements.txt
+```
+
+#### Default Benchmarking
+The heuristics in this repository can be run through `benchmark_suite.py`
+
+The default benchmark suite is set to run and plot the accuracy benchmarks of graphs with 7 vertices. 
+
+**To run the current benchmark suite:**
+```bash
+python3 benchmark_suite.py
+```
+
+The benchmark suite will plot an accuracy of all heuristics which can be saved to your local directory.
+
+If you wish to run other benchmarks or run the accuracy benchmark on other graphs, please read below for further information on the contents of the repository and its benchmark suite.
+
 ## About the Repository
 
 This repository contains the heuristics, random graph generators, graphs sets, and benchmark suite used during research into the longest path problem.
@@ -23,27 +49,8 @@ This repository contains the heuristics, random graph generators, graphs sets, a
 
 - `visualizing_graph_periphery.py`: Colors a random graph's vertices in a gradient based on the total vertex periphery.
 
-## Prerequisites for Execution
-
-1. You will need to install [Python](https://www.python.org/) 3.10 on your machine.
-
-2. The heuristics, graphs, and benchmark suite require the [Python-igraph](https://igraph.org/python/) and the [Matplotlib](https://matplotlib.org/) packages to run.
-
-```bash
-python3 -m pip install -r requirements.txt
-```
-
-## Usage
+## All Benchmarks
 All testing of the heuristics can be done through the benchmark suite file. It contains several benchmark functions, several benchmark execution functions, and a function to find graphs that cause heuristics to return incorrect answers.
-
-The current benchmark suite is set to run and plot the accuracy benchmarks of graphs with 7 vertices. 
-
-**To run the current benchmark suite:**
-```bash
-python3 benchmark_suite.py
-```
-
-If you wish to run other benchmarks or run the accuracy benchmark on other graphs, please read below for further information.
 
 #### Benchmark Functions:
 
