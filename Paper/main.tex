@@ -118,7 +118,6 @@ The second group of heuristics based on the centrality of the vertices. The defi
     \item \textbf{Vertex Periphery}: For any vertex \emph{A}, the vertex periphery (VP) is the longest shortest path from \emph{A} to any other vertex. The lower the vertex periphery of \emph{A}, the more central \emph{A} is.
     \item \textbf{Total Vertex Periphery}:  For any vertex \emph{A}, the total vertex periphery (TVP) is the sum of all shortest paths from \emph{A} to every other vertex. The lower the total vertex periphery of \emph{A}, the more central \emph{A} is.
     \item \textbf{Graph Periphery}: For any graph \emph{G}, the graph periphery (GP) is the sum of all total vertex periphery in \emph{G}.
-    \item \textbf{Graph Diameter}: For any graph \emph{G}, the diameter (GD) is the longest shortest path between any two vertices in \emph{G}
 \end{enumerate}
 
 All graph centrality heuristics were based on the idea that given a graph \emph{G} with \emph{n} vertices and \emph{m} edges, if you cut specific \(m - (n - 1)\) edges, the graph will then be pruned into a tree, \emph{T}, whose longest path corresponds to the longest path in. The longest path of \emph{T} could then be found in linear time with Dijkstra's Dangle algorithm \cite{club2002computing}.
