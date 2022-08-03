@@ -1,7 +1,7 @@
 # Init file for calling heuristics
 # Justin Xie 2022
 
-from . import greedy, dfs_greedy, prune_central_edges, stretch_graph_periphery, stretch_lowest_vertex_periphery
+from . import greedy, dfs_greedy, prune_central_edges, stretch_graph_periphery, stretch_lowest_vertex_periphery, find_longest_path
 
 # Allows benchmark suite to call all functions 
 # for comparison
@@ -10,7 +10,8 @@ all = [
     dfs_greedy.dfs_greedy_longest_path,
     prune_central_edges.prune_central_longest_path,
     stretch_graph_periphery.stretch_total_longest_path,
-    stretch_lowest_vertex_periphery.stretch_vertex_longest_path
+    stretch_lowest_vertex_periphery.stretch_vertex_longest_path,
+    #find_longest_path.find_longest_path
     ]
 
 

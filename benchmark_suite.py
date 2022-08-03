@@ -147,33 +147,6 @@ def plot_altering_edges(vertices, heuristics, benchmark):
     plt.show()
 
 
-# Plots the results of a benchmark when altering the number of vertices
-# Keeping the edge to maximum possible edges ratio constant
-def plot_altering_vertices(bench, funcs, starting_vertex_count, ending_vertex_count, edge_max_ratio, runs):
-    x_label = input('x-axis label: ')
-    y_label = input('y-axis label: ')
-    title = input('Graph Title: ')
-    all_y = []
-   
-    for i in range(len(funcs)):
-        x = []
-        y = []
-        for number_of_vertices in range(starting_vertex_count, ending_vertex_count + 1):
-            n = number_of_vertices
-            m = int(n*(n-1)//2 * edge_max_ratio)
-            x.append(n)
-            y.append(bench(n, m, funcs[i], runs))
-        all_y.append(y)
-
-    for i in range(len(all_y)):
-        plt.plot(x, all_y[i], label=funcs[i].__name__)
-    plt.xlabel(x_label) 
-    plt.ylabel(y_label)
-    plt.title(title)
-    plt.legend()
-    plt.show()
-
-
 # Finds the number of and plots the graphs that cause the
 # heuristic to fail to find the correct longest path
 def find_heuristic_fail(n, m, heuristic, runs):
@@ -200,4 +173,4 @@ def find_heuristic_fail(n, m, heuristic, runs):
 
 
 if __name__ == "__main__":
-    plot_altering_edges(8, heuristics.all, accuracy)
+    plot_altering_edges(9, heuristics.all, error)
