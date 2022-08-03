@@ -45,7 +45,7 @@ python3 benchmark_suite.py
 
 If you wish to run other benchmarks or run the accuracy benchmark on other graphs, please read below for further information.
 
-### Benchmark Functions:
+#### Benchmark Functions:
 
 Each function is given a specific vertex (*n*) and edge count (*m*), a heuristic, and a location of the graph files to be benchmarked.
 
