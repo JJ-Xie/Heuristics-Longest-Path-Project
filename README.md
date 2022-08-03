@@ -38,6 +38,13 @@ All testing of the heuristics can be done through the benchmark suite file. It c
 
 The current benchmark suite is set to run and plot the accuracy benchmarks of graphs with 8 vertices. 
 
+**To run the current benchmark suite:**
+```bash
+python3 benchmark_suite.py
+```
+
+If you wish to run other benchmarks or run the accuracy benchmark on other graphs, please read below for further information.
+
 ### Benchmark Functions:
 
 Each function is given a specific vertex (*n*) and edge count (*m*), a heuristic, and a location of the graph files to be benchmarked.
