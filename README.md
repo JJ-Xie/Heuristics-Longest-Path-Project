@@ -48,7 +48,7 @@ Each function is given a specific vertex (n) and edge count (m), a heuristic, an
 2. **plot_altering_edges:** Given a specific vertex count, a single or group of heuristics, and a benchmark function. This execution function loop through all possible edge counts for the given vertex count and execute the benchmark for all given heuristics for the graph sets at each vertex and edge combination.
 
 #### find_heuristic_fail 
-Given a vertex and edge count, a heuristic, and a number of runs to loop through. The function generates random graphs with n vertices an m edges and returns the number of graphs where the heuristic failed to yield the correct answer. It then graphs them if inputted 'y' at your discretion.
+Given a vertex and edge count, a heuristic, and a number of runs to loop through. The function generates random graphs with n vertices an m edges and returns the number of graphs where the heuristic failed to yield the correct answer. It then graphs them if inputted 'y' (meaning: yes, continue) at your discretion.
 
 ### Using the Benchmark Execution Functions
 In the main function of the benchmark suite, you can call any of the benchmark execution functions. For example, to plot the accuracy of all heuristics on graphs with 8 vertices and a changing number of edges, you could call this function in the main function:

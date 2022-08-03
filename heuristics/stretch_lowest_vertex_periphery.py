@@ -133,7 +133,7 @@ def stretch_node(graph):
     return graph
 
 # Runs Dijkstras tree algorithm on the graph with stretched vertices to find the longest path in the graph
-def stretch_nodes_longest_path(graph):
+def stretch_vertex_longest_path(graph):
     tree = stretch_node(graph)
     longest_path = dijkstras_tree(tree)
     return longest_path
