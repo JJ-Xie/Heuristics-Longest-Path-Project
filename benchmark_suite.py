@@ -113,8 +113,8 @@ def execute_specific_benchmark_set(n, m, heuristics, benchmark):
 # the number of edges and keeping the vertices the same
 # Runs all graph sets with the same given vertex count 
 def plot_altering_edges(vertices, heuristics, benchmark):
-    x_label = 'Number of Vertices'
-    y_label = benchmark.__name__
+    x_label = 'Number of Edges'
+    y_label = benchmark.__name__.capitalize()
     title = f'Heuristics {y_label} on {vertices}-Vertex Graph'
     all_y = []
     last_x = []
