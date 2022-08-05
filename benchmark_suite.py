@@ -173,4 +173,4 @@ def find_heuristic_fail(n, m, heuristic, runs):
 
 
 if __name__ == "__main__":
-    plot_altering_edges(9, heuristics.all, error)
+    plot_altering_edges(7, heuristics.all, accuracy)
