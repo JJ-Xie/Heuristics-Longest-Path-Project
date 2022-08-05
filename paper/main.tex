@@ -107,6 +107,22 @@ The greedy heuristic utilizing the graph's vertex neighbor count feature, or the
 
 The greedy heuristic was based on the options for the next vertex in traversing the graph. The heuristic would prioritize visiting vertices with fewer neighbors and thus a lower number of ``options'' by which it could be reached. Consequentially, vertices with more neighbors were visited later, as there were more ``options'' to get to them. The problem with this heuristic was that it was often in a position where two or more vertices adjacent to the current vertex had the same number of available neighbors, putting the heuristic at a crossroads of tie breaking. In our first iteration of the Greedy Neighbor heuristic, the vertex with a lower ID was chosen. While this sometimes was inconsequential, because in many cases both paths led to longest paths being found, there were also graphs where choosing the lower node ID led to a shorter path length than the desired LSP. This behavior was most noticeable in larger and sparse graphs with seven or more vertices. There needed to be a tiebreaker that could pick the correct choice instead of letting chance decide. 
 
+\begin{algorithm}
+    \begin{algorithmic}
+    \State $G \gets$ tree created by DFS
+    \State $R \gets$ root vertex of tree
+    \State internal path length $\gets 0$
+    \For {vertex in tree}
+        \State $D \gets$ distance from vertex to $R$
+        \State add $D$ to internal path length
+    \EndFor
+    \State{}
+    \State return internal path length
+    
+    \end{algorithmic}
+    \caption{DFS Tiebreaker Function}\label{alg:DFSTiebreaker}
+    \end{algorithm}
+
 The second version of the Greedy Neighbor heuristic involved a Depth-First-Search (DFS) that acted as the tiebreaker when more than one adjacent vertex had the most neighbors. This DFS was a specialized version that traversed the remaining available vertices in the graph. It prioritized visiting vertices with lower IDs (instead of randomly deciding the next vertex). For each of the tied adjacent vertices, it created a tree graph with the root being the starting DFS vertex. For each vertex that had tied with having the most neighbors, the specialized DFS was executed to create post-DFS trees. The internal path length is the sum of the depth (distance from root) of all nodes. The internal path length of each post-DFS tree was calculated and the one with the highest was chose as the next vertex to visit in the greedy traversal. 
 
 \subsection{Graph Centrality, Periphery, and Pruning}
